@@ -41,57 +41,25 @@ route, and nothing is inlined in the HTML.
 
 ## Screenshots
 
-### Home
+| Home | Anime list | Anime details |
+| :---: | :---: | :---: |
+| [![Home page](screenshots/home.jpg)](screenshots/home.jpg) | [![Anime list page](screenshots/anime-list.jpg)](screenshots/anime-list.jpg) | [![Anime details page](screenshots/anime-details.jpg)](screenshots/anime-details.jpg) |
 
-[![Home page](screenshots/home.jpg)](screenshots/home.jpg)
+| Movies | Upcoming releases | Broadcast schedule |
+| :---: | :---: | :---: |
+| [![Movies page](screenshots/movies.jpg)](screenshots/movies.jpg) | [![Upcoming releases page](screenshots/upcoming.jpg)](screenshots/upcoming.jpg) | [![Schedule page](screenshots/schedule.jpg)](screenshots/schedule.jpg) |
 
-### Anime list
+| News | Watchlist | Premium |
+| :---: | :---: | :---: |
+| [![News page](screenshots/news.jpg)](screenshots/news.jpg) | [![Watchlist page](screenshots/watchlist.jpg)](screenshots/watchlist.jpg) | [![Premium page](screenshots/premium.jpg)](screenshots/premium.jpg) |
 
-[![Anime list page](screenshots/anime-list.jpg)](screenshots/anime-list.jpg)
+| About us | Contact | Privacy policy |
+| :---: | :---: | :---: |
+| [![About page](screenshots/about.jpg)](screenshots/about.jpg) | [![Contact page](screenshots/contact.jpg)](screenshots/contact.jpg) | [![Privacy policy page](screenshots/privacy.jpg)](screenshots/privacy.jpg) |
 
-### Anime details
-
-[![Anime details page](screenshots/anime-details.jpg)](screenshots/anime-details.jpg)
-
-### Movies
-
-[![Movies page](screenshots/movies.jpg)](screenshots/movies.jpg)
-
-### Upcoming releases
-
-[![Upcoming releases page](screenshots/upcoming.jpg)](screenshots/upcoming.jpg)
-
-### Broadcast schedule
-
-[![Schedule page](screenshots/schedule.jpg)](screenshots/schedule.jpg)
-
-### News
-
-[![News page](screenshots/news.jpg)](screenshots/news.jpg)
-
-### Watchlist
-
-[![Watchlist page](screenshots/watchlist.jpg)](screenshots/watchlist.jpg)
-
-### Premium
-
-[![Premium page](screenshots/premium.jpg)](screenshots/premium.jpg)
-
-### About us
-
-[![About page](screenshots/about.jpg)](screenshots/about.jpg)
-
-### Contact
-
-[![Contact page](screenshots/contact.jpg)](screenshots/contact.jpg)
-
-### Privacy policy
-
-[![Privacy policy page](screenshots/privacy.jpg)](screenshots/privacy.jpg)
-
-### Welcome
-
-[![Welcome page](screenshots/welcome.jpg)](screenshots/welcome.jpg)
+| Welcome | | |
+| :---: | :---: | :---: |
+| [![Welcome page](screenshots/welcome.jpg)](screenshots/welcome.jpg) | | |
 
 ---
 
