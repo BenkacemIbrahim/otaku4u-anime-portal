@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Page styles: pages/anime-details.html
+   ========================================================================== */
+
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #1A1A2E;
+    color: #FFFFFF;
+    zoom: 1.2;
+}
+
+.hero-background {
+    background-image: url('../assets/images/anime-moon-landscape.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.anime-card .anime-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.anime-card:hover .anime-info {
+    transform: translateY(0);
+}
+
+.character-cards-container {
+    display: flex;
+    flex-direction: row-reverse;
+    /* This will align items from right to left */
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scroll-behavior: smooth;
+}
+
+.character-cards-container::-webkit-scrollbar {
+    display: none;
+    /* WebKit */
+}
+
+.character-card {
+    flex: 0 0 auto;
+    width: 250px;
+    /* Adjust as needed */
+    margin-left: 1rem;
+    /* Changed from margin-right to margin-left */
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.scroll-button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.scroll-button.right {
+    right: 5px;
+    /* Position on the left side to scroll right */
+}
+
+.blur-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100px;
+    /* Adjust this value to control the height of the blur effect */
+    background: rgba(26, 26, 46, 0.5);
+    /* Matching the background color with some transparency */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+#scrollToTopBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #FF8C8C;
+    transform: scale(1.1);
+}
+
+/* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    /* Dark background for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    /* Primary color for the thumb */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+    /* Darker shade on hover */
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #1a1a1a;
+    /* thumb and track colors */
+}

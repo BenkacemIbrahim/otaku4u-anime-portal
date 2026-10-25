@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Page styles: pages/welcome.html
+   ========================================================================== */
+
+
+body {
+    font-family: 'Cairo', sans-serif;
+    zoom: 1.2;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    /* Dark background for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    /* Primary color for the thumb */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+    /* Darker shade on hover */
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #1a1a1a;
+    /* thumb and track colors */
+}
+
+#scrollToTopBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+    opacity: 0;
+}
+
+#scrollToTopBtn.show {
+    opacity: 1;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #FF8C8C;
+    transform: scale(1.1);
+}

@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Page styles: pages/news.html
+   ========================================================================== */
+
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #1A1A2E;
+    color: #FFFFFF;
+    zoom: 1.2;
+}
+
+.news-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#scrollToTopBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+    opacity: 0;
+}
+
+#scrollToTopBtn.show {
+    opacity: 1;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #FF8C8C;
+    transform: scale(1.1);
+}
+
+#newsModal {
+    overflow-y: hidden;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+#modalContent {
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+/* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    /* Dark background for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    /* Primary color for the thumb */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+    /* Darker shade on hover */
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #1a1a1a;
+    /* thumb and track colors */
+}

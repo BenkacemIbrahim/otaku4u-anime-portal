@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Page styles: pages/premium.html
+   ========================================================================== */
+
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #1A1A2E;
+}
+
+.pricing-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+/* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    /* Dark background for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    /* Primary color for the thumb */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+    /* Darker shade on hover */
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #1a1a1a;
+    /* thumb and track colors */
+}

@@ -1,0 +1,278 @@
+/* ==========================================================================
+   Page styles: index.html
+   ========================================================================== */
+
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #1A1A2E;
+    color: #FFFFFF;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.anime-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.anime-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.scrollable-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.scrollable-menu button {
+    background-color: rgba(255, 107, 107, 0.8);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.scrollable-menu button:hover {
+    background-color: rgba(255, 107, 107, 1);
+}
+
+.scrollable-menu .menu-items {
+    overflow-x: auto;
+    white-space: nowrap;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scrollable-menu a {
+    display: inline-block;
+    background-color: #4ECDC4;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.scrollable-menu a:hover {
+    background-color: #FF6B6B;
+    transform: scale(1.05);
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-in {
+    animation: slide-in 1s ease forwards;
+}
+
+.swiper-slide-active .slide-in {
+    animation-delay: 0.5s;
+}
+
+#scrollToTopBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #FF8C8C;
+    transform: scale(1.1);
+}
+
+.anime-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.anime-card:hover::before {
+    opacity: 1;
+}
+
+.anime-card .anime-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.anime-card:hover .anime-info {
+    transform: translateY(0);
+}
+
+.section-title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+}
+
+.news-card {
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-10px);
+}
+
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2A2A3E;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.filter-dropdown:hover .filter-dropdown-content {
+    display: block;
+}
+
+.filter-dropdown-content a {
+    color: #FFFFFF;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.filter-dropdown-content a:hover {
+    background-color: #3A3A4E;
+}
+
+.swiper-slide-active .slide-content {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.swiper-slide-inactive .slide-content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.swiper-slide-active .slide-image {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.swiper-slide-inactive .slide-image {
+    opacity: 0;
+    transform: scale(1.1);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+@keyframes wave {
+    0% {
+        background-position-x: 0;
+    }
+
+    100% {
+        background-position-x: 1440px;
+    }
+}
+
+.animate-wave {
+    animation: wave 20s linear infinite;
+}
+
+.zoomed-content {
+    zoom: 1.2;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-card {
+    opacity: 0;
+}
+
+#categoriesContainer .category-card {
+    opacity: 1;
+}
+
+/* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    /* Dark background for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    /* Primary color for the thumb */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+    /* Darker shade on hover */
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #1a1a1a;
+    /* thumb and track colors */
+}

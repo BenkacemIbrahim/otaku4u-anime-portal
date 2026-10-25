@@ -1,0 +1,82 @@
+/* ==========================================================================
+   Page styles: pages/watchlist.html
+   ========================================================================== */
+
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #1A1A2E;
+    color: #FFFFFF;
+    zoom: 1.2;
+}
+
+.episodes-sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: #4a5568 #2d3748;
+}
+
+.episodes-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.episodes-sidebar::-webkit-scrollbar-track {
+    background: #2d3748;
+}
+
+.episodes-sidebar::-webkit-scrollbar-thumb {
+    background-color: #4a5568;
+    border-radius: 4px;
+}
+
+.episode-card {
+    transition: transform 0.2s ease;
+}
+
+.episode-card:hover {
+    transform: translateY(-2px);
+}
+
+.progress-bar {
+    height: 4px;
+    background: linear-gradient(to right, #FF6B6B 0%, #4ECDC4 100%);
+}
+
+.anime-card .anime-info {
+    transition: transform 0.3s ease-in-out;
+}
+
+.anime-card:hover .anime-info {
+    transform: translateY(0);
+}
+
+/* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #1a1a1a;
+}
+
+.comment-likes {
+    transition: color 0.3s ease;
+}
+
+.comment-likes:hover {
+    color: #FF6B6B;
+}
