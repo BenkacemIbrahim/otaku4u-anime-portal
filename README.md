@@ -53,10 +53,6 @@ route, and nothing is inlined in the HTML.
 | :---: | :---: | :---: |
 | [![News page](screenshots/news.jpg)](screenshots/news.jpg) | [![Watchlist page](screenshots/watchlist.jpg)](screenshots/watchlist.jpg) | [![Premium page](screenshots/premium.jpg)](screenshots/premium.jpg) |
 
-| About us | Contact | Privacy policy |
-| :---: | :---: | :---: |
-| [![About page](screenshots/about.jpg)](screenshots/about.jpg) | [![Contact page](screenshots/contact.jpg)](screenshots/contact.jpg) | [![Privacy policy page](screenshots/privacy.jpg)](screenshots/privacy.jpg) |
-
 | Welcome | | |
 | :---: | :---: | :---: |
 | [![Welcome page](screenshots/welcome.jpg)](screenshots/welcome.jpg) | | |
