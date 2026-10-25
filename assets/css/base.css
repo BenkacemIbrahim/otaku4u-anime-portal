@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Base styles
+   Loaded on every page, before any page-specific stylesheet.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+body {
+    font-family: 'Cairo', sans-serif;
+}
+
+/* Scrollable strips that hide their native scrollbar ---------------------- */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

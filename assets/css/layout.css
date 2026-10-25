@@ -1,0 +1,207 @@
+/* ==========================================================================
+   Layout styles - shared header and footer components
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+header {
+    zoom: 1.2;
+}
+
+button:hover {
+    animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.logo-text {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #FF6B6B;
+    animation: float 3s ease-in-out infinite, hue-rotate 5s infinite linear;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes hue-rotate {
+    from {
+        filter: hue-rotate(0deg);
+    }
+
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.nav-item {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #FF6B6B;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: right;
+}
+
+.nav-item:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.nav-item:hover {
+    transform: translateY(-2px);
+}
+
+.dropdown-menu {
+    transform: translateY(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.group:hover .dropdown-menu {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+#loggedInMenu {
+    transition: all 0.3s ease;
+}
+
+#userNameDisplay {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+#searchButton {
+    transition: all 0.3s ease;
+}
+
+#searchButton:hover {
+    background-color: rgba(255, 107, 107, 0.8);
+}
+
+#searchInput {
+    transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.search-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 9999px;
+    border: 2px solid #FF6B6B;
+}
+
+.search-container:focus-within {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.search-container input {
+    border: none;
+}
+
+.search-container button {
+    border-right: 2px solid #FF6B6B;
+}
+
+.modal {
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+#darkModeToggle {
+    transition: transform 0.3s ease;
+}
+
+#darkModeToggle:hover {
+    transform: rotate(360deg);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+footer .logo-text {
+    animation: hue-rotate 5s infinite linear;
+}
+
+.footer-link {
+    position: relative;
+    display: inline-block;
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #FF6B6B;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.footer-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.social-icon {
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+}
+
+/* --------------------------------------------------------------------------
+   Component preview
+   Applied only to the standalone component files in components/ so they keep
+   the zoom they were designed with. Never used by the pages themselves.
+   -------------------------------------------------------------------------- */
+
+.component-preview {
+    zoom: 1.1;
+}

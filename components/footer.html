@@ -4,87 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer - Otaku4U</title>
+    <title>Footer Component - Otaku4U</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#FF6B6B',
-                        secondary: '#4ECDC4',
-                        background: '#1A1A2E',
-                        text: '#FFFFFF',
-                    },
-                    fontFamily: {
-                        sans: ['Cairo', 'sans-serif'],
-                    },
-                },
-            },
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            zoom: 1.1;
-        }
-
-        .logo-text {
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: #FF6B6B;
-            animation: hue-rotate 5s infinite linear;
-        }
-
-        @keyframes hue-rotate {
-            from {
-                filter: hue-rotate(0deg);
-            }
-
-            to {
-                filter: hue-rotate(360deg);
-            }
-        }
-
-        .footer-link {
-            position: relative;
-            display: inline-block;
-        }
-
-        .footer-link::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #FF6B6B;
-            transform-origin: bottom right;
-            transition: transform 0.25s ease-out;
-        }
-
-        .footer-link:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        .social-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-5px);
-        }
-    </style>
+    <script src="../assets/js/tailwind.config.js"></script>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
 </head>
 
-<body class="bg-background text-text">
+<body class="bg-background text-text component-preview">
     <footer class="bg-background text-text py-12">
         <div class="container mx-auto px-4">
             <div class="flex flex-wrap justify-between items-start">
@@ -182,9 +110,7 @@
         </div>
     </footer>
 
-    <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
+    <script src="../assets/js/footer.js"></script>
 </body>
 
 </html>
