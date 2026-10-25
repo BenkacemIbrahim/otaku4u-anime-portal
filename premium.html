@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استكشف مميزاتنا | Otaku4U</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        background: '#1A1A2E',
+                        text: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1A1A2E;
+        }
+
+        .pricing-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            /* Dark background for the track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            /* Primary color for the thumb */
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+            /* Darker shade on hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1a1a1a;
+            /* thumb and track colors */
+        }
+    </style>
+</head>
+
+<body class="text-text">
+    <main class="container mx-auto px-4 py-12">
+        <!-- Hero Section -->
+        <section class="text-center mb-16">
+            <h1 class="text-5xl font-bold mb-6">
+                <span class="text-primary">استكشف قوة</span>
+                <span class="block mt-2">العضوية المميزة</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-8">ارتقِ بتجربة مشاهدة الأنمي الخاصة بك مع مميزات حصرية</p>
+        </section>
+
+        <!-- Premium Plans -->
+        <section class="mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Basic Plan -->
+                <div class="pricing-card bg-gray-800 rounded-2xl p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4">الباقة الأساسية</h3>
+                    <div class="text-primary text-4xl font-bold mb-6">
+                        <span>مجاناً</span>
+                    </div>
+                    <ul class="text-right mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            مشاهدة غير محدودة
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            جودة 720p
+                        </li>
+                        <li class="flex items-center text-gray-500">
+                            <i class="fas fa-times text-red-500 ml-2"></i>
+                            مع إعلانات
+                        </li>
+                    </ul>
+                    <button class="bg-gray-700 text-white w-full py-3 rounded-full hover:bg-gray-600 transition-colors">
+                        ابدأ الآن
+                    </button>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="pricing-card bg-primary rounded-2xl p-8 text-center transform scale-105">
+                    <div
+                        class="bg-yellow-500 text-background text-sm font-bold py-1 px-4 rounded-full inline-block mb-4">
+                        الأكثر شعبية</div>
+                    <h3 class="text-2xl font-bold mb-4">الباقة المميزة</h3>
+                    <div class="text-background text-4xl font-bold mb-6">
+                        <span>$9.99</span>
+                        <span class="text-sm">/شهرياً</span>
+                    </div>
+                    <ul class="text-right mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            كل مميزات الباقة الأساسية
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            بدون إعلانات
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            جودة 1080p
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            تحميل غير محدود
+                        </li>
+                    </ul>
+                    <button
+                        class="bg-background text-white w-full py-3 rounded-full hover:bg-opacity-90 transition-colors">
+                        اشترك الآن
+                    </button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="pricing-card bg-gray-800 rounded-2xl p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4">الباقة الاحترافية</h3>
+                    <div class="text-primary text-4xl font-bold mb-6">
+                        <span>$14.99</span>
+                        <span class="text-sm">/شهرياً</span>
+                    </div>
+                    <ul class="text-right mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            كل مميزات الباقة المميزة
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            جودة 4K
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            مشاهدة مبكرة
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-2"></i>
+                            محتوى حصري
+                        </li>
+                    </ul>
+                    <button class="bg-gray-700 text-white w-full py-3 rounded-full hover:bg-gray-600 transition-colors">
+                        اشترك الآن
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Features -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">مميزات إضافية مع العضوية المميزة</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gray-800 p-6 rounded-xl text- justify">
+                    <i class="fas fa-mobile-alt text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">متوافق مع جميع الأجهزة</h4>
+                    <p>شاهد الأنمي على جهازك المفضل، في أي وقت وأي مكان</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl text-justify">
+                    <i class="fas fa-bolt text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">سرعة في التحديث</h4>
+                    <p>نوفر أحدث حلقات الأنمي فور صدورها مباشرة</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl text-justify">
+                    <i class="fas fa-users text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">مجتمع نشط</h4>
+                    <p>تفاعل مع المعجبين ومناقشة أحدث الحلقات والأخبار</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl text-justify">
+                    <i class="fas fa-download text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">تحميل مباشر</h4>
+                    <p>إمكانية تحميل الحلقات بجودات مختلفة تناسب جميع السرعات</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الخصوصية | Otaku4U</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        background: '#1A1A2E',
+                        text: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1A1A2E;
+            color: #FFFFFF;
+            zoom: 1.2;
+        }
+
+        .privacy-section {
+            transition: all 0.3s ease;
+        }
+
+        .privacy-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #scrollToTopBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        #scrollToTopBtn.show {
+            opacity: 1;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #FF8C8C;
+            transform: scale(1.1);
+        }
+
+        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            /* Dark background for the track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            /* Primary color for the thumb */
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+            /* Darker shade on hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1a1a1a;
+            /* thumb and track colors */
+        }
+
+        .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+
+        .fa-chevron-down.rotated {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-text">
+
+    <main class="container mx-auto px-4 py-8">
+        <h2 class="text-4xl font-bold mb-8 text-center">سياسة الخصوصية</h2>
+
+        <div class="space-y-8">
+            <section class="privacy-section bg-gray-800 rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-primary cursor-pointer" onclick="toggleSection('section1')">
+                    1. جمع المعلومات <i class="fas fa-chevron-down float-left"></i></h3>
+                <div id="section1" class="hidden">
+                    <p class="mb-4">نجمع المعلومات التالية:</p>
+                    <ul class="list-disc list-inside space-y-2 mr-4">
+                        <li>معلومات شخصية مثل الاسم والبريد الإلكتروني وتاريخ الميلاد عند إنشاء الحساب</li>
+                        <li>معلومات عن نشاطك على الموقع، مثل تاريخ المشاهدة وتفضيلات الأنمي</li>
+                        <li>معلومات تقنية مثل نوع الجهاز ونظام التشغيل وعنوان IP</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="privacy-section bg-gray-800 rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-primary cursor-pointer" onclick="toggleSection('section2')">
+                    2. استخدام المعلومات <i class="fas fa-chevron-down float-left"></i></h3>
+                <div id="section2" class="hidden">
+                    <p class="mb-4">نستخدم معلوماتك للأغراض التالية:</p>
+                    <ul class="list-disc list-inside space-y-2 mr-4">
+                        <li>تخصيص توصيات الأنمي وتحسين تجربة المستخدم</li>
+                        <li>تحليل أنماط الاستخدام لتطوير ميزات جديدة وتحسين الخدمات الحالية</li>
+                        <li>إرسال تحديثات عن المحتوى الجديد والعروض الخاصة</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="privacy-section bg-gray-800 rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-primary cursor-pointer" onclick="toggleSection('section3')">
+                    3. حماية البيانات <i class="fas fa-chevron-down float-left "></i></h3>
+                <div id="section3" class="hidden">
+                    <p class="mb-4">نتخذ التدابير التالية لحماية بياناتك:</p>
+                    <ul class="list-disc list-inside space-y-2 mr-4">
+                        <li>استخدام تقنيات تشفير متقدمة لحماية البيانات أثناء النقل والتخزين</li>
+                        <li>تطبيق إجراءات أمنية صارمة للحماية من الوصول غير المصرح به أو الاختراق</li>
+                        <li>إجراء مراجعات أمنية دورية لضمان فعالية تدابيرنا الأمنية</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="privacy-section bg-gray-800 rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-primary cursor-pointer" onclick="toggleSection('section4')">
+                    4. ملفات تعريف الارتباط <i class="fas fa-chevron-down float-left"></i></h3>
+                <div id="section4" class="hidden">
+                    <p class="mb-4">نستخدم ملفات تعريف الارتباط للأغراض التالية:</p>
+                    <ul class="list-disc list-inside space-y-2 mr-4">
+                        <li>ملفات تعريف ارتباط ضرورية لتشغيل الموقع وتحسين الأداء</li>
+                        <li>ملفات تعريف ارتباط تحليلية لفهم كيفية استخدام الزوار لموقعنا</li>
+                        <li>يمكنك إدارة تفضيلات ملفات تعريف الارتباط من خلال إعدادات المتصفح الخاص بك</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="privacy-section bg-gray-800 rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-primary cursor-pointer" onclick="toggleSection('section5')">
+                    5. مشاركة المعلومات <i class="fas fa-chevron-down float-left"></i></h3>
+                <div id="section5" class="hidden">
+                    <p class="mb-4">سياستنا في مشاركة المعلومات:</p>
+                    <ul class="list-disc list-inside space-y-2 mr-4">
+                        <li>قد نشارك معلومات مع مزودي الخدمات الموثوق بهم الذين يساعدوننا في تشغيل موقعنا</li>
+                        <li>نلتزم بالكشف عن المعلومات عند الضرورة للامتثال للقانون أو حماية حقوقنا القانونية</li>
+                        <li>لا نبيع أو نؤجر معلوماتك الشخصية لأطراف ثالثة لأغراض تسويقية</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="privacy-section bg-gray-800 rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-primary cursor-pointer" onclick="toggleSection('section6')">
+                    6. حقوقك <i class="fas fa-chevron-down float-left"></i></h3>
+                <div id="section6" class="hidden">
+                    <p class="mb-4">لديك الحقوق التالية فيما يتعلق ببياناتك:</p>
+                    <ul class="list-disc list-inside space-y-2 mr-4">
+                        <li>طلب نسخة من بياناتك الشخصية التي نحتفظ بها</li>
+                        <li>تصحيح أي معلومات غير دقيقة أو غير مكتملة</li>
+                        <li>طلب حذف بياناتك الشخصية في ظروف معينة</li>
+                        <li>الاعتراض على معالجة بياناتك لأغراض التسويق المباشر</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="privacy-section bg-gray-800 rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-primary cursor-pointer" onclick="toggleSection('section7')">
+                    7. تغييرات في سياسة الخصوصية<i class="fas fa-chevron-down float-left"></i></h3>
+                <div id="section7" class="hidden">
+                    <p class="mb-4">نراجع سياستنا بانتظام ونحدثها لتعكس أي تغييرات في ممارساتنا أو التزاماتنا
+                        القانونية:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 mr-4">
+                        <li>سنخطرك بأي تغييرات جوهرية عبر البريد الإلكتروني أو إشعار بارز على موقعنا</li>
+                        <li>نشجعك على مراجعة سياستنا بشكل دوري للبقاء على اطلاع بكيفية حماية معلوماتك</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="privacy-section bg-gray-800 rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-primary cursor-pointer" onclick="toggleSection('section8')">
+                    8. اتصل بنا <i class="fas fa-chevron-down float-left"></i></h3>
+                <div id="section8" class="hidden">
+                    <p class="mb-4">للتواصل معنا:</p>
+                    <ul class="list-disc list-inside space-y-2 mr-4">
+                        <li>البريد الإلكتروني العام: privacy@otaku4u.com</li>
+                        <li>مسؤول حماية البيانات: dpo@otaku4u.com</li>
+                        <li>نلتزم بالرد على استفساراتك في غضون 30 يومًا</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <div class="text-center mt-8">
+            <a href="mailto:privacy@otaku4u.com"
+                class="bg-primary text-background px-6 py-2 rounded-full text-lg font-semibold hover:bg-opacity-80 transition-colors duration-300 transform hover:scale-105">اتصل
+                بنا</a>
+        </div>
+    </main>
+
+    <button id="scrollToTopBtn"
+        class="fixed bottom-5 right-5 bg-primary text-background p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 ease-in-out z-50 hover:bg-opacity-80">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Scroll to Top Button Functionality
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        window.onscroll = function () {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.classList.add("show");
+            } else {
+                scrollToTopBtn.classList.remove("show");
+            }
+        };
+
+        scrollToTopBtn.onclick = function () {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        };
+
+        // Toggle function for sections
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('hidden');
+        }
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const chevron = section.parentElement.querySelector('.fa-chevron-down');
+
+            section.classList.toggle('hidden');
+            chevron.classList.toggle('rotated');
+        }
+    </script>
+
+</body>
+
+</html

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرحباً بك في Otaku4U - عالمك الأول للأنمي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        background: '#1A1A2E',
+                        text: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            zoom: 1.2;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            /* Dark background for the track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            /* Primary color for the thumb */
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+            /* Darker shade on hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1a1a1a;
+            /* thumb and track colors */
+        }
+
+        #scrollToTopBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        #scrollToTopBtn.show {
+            opacity: 1;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #FF8C8C;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-text">
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="text-center mb-12">
+            <h2 class="text-5xl font-bold mb-6 text-primary">مرحباً بك في عالم Otaku4U</h2>
+            <p class="text-xl mb-8">موقعك الأول لمشاهدة وتحميل الأنمي المترجم بجودة عالية</p>
+            <a href="home.html"
+                class="bg-primary text-background px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-80 transition-colors duration-300 inline-block">
+                استكشف عالم الأنمي
+                <i class="fas fa-arrow-left mr-2"></i>
+            </a>
+        </section>
+
+        <!-- Enhanced ما الذي يميزنا section -->
+        <section class="mb-12">
+            <h3 class="text-3xl font-bold mb-6 text-center">ما الذي يميزنا؟</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card bg-gray-800 p-6 rounded-lg transition-all duration-300">
+                    <i class="fas fa-tv text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">مكتبة ضخمة من الأنمي</h4>
+                    <p>آلاف الحلقات والأفلام المترجمة بجودة عالية</p>
+                </div>
+                <div class="feature-card bg-gray-800 p-6 rounded-lg transition-all duration-300">
+                    <i class="fas fa-closed-captioning text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">ترجمة احترافية</h4>
+                    <p>ترجمات دقيقة ومراجعة لضمان أفضل تجربة مشاهدة</p>
+                </div>
+                <div class="feature-card bg-gray-800 p-6 rounded-lg transition-all duration-300">
+                    <i class="fas fa-mobile-alt text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">متوافق مع جميع الأجهزة</h4>
+                    <p>شاهد الأنمي على جهازك المفضل، في أي وقت وأي مكان</p>
+                </div>
+                <div class="feature-card bg-gray-800 p-6 rounded-lg transition-all duration-300">
+                    <i class="fas fa-bolt text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">سرعة في التحديث</h4>
+                    <p>نوفر أحدث حلقات الأنمي فور صدورها مباشرة</p>
+                </div>
+                <div class="feature-card bg-gray-800 p-6 rounded-lg transition-all duration-300">
+                    <i class="fas fa-download text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">تحميل مباشر</h4>
+                    <p>إمكانية تحميل الحلقات بجودات مختلفة تناسب جميع السرعات</p>
+                </div>
+                <div class="feature-card bg-gray-800 p-6 rounded-lg transition-all duration-300">
+                    <i class="fas fa-users text-4xl text-primary mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">مجتمع نشط</h4>
+                    <p>تفاعل مع المعجبين ومناقشة أحدث الحلقات والأخبار</p>
+                </div>
+            </div>
+        </section>
+        <section class="mb-16">
+            <h2 class="text-4xl font-bold text-center mb-12">كيف يعمل Otaku4U؟</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="bg-gray-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-primary text-2xl">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">سجل حساباً مجانياً</h3>
+                    <p class="text-gray-400">انضم إلى مجتمعنا في خطوات بسيطة</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-gray-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-primary text-2xl">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">اختر أنميك المفضل</h3>
+                    <p class="text-gray-400">تصفح مكتبتنا الضخمة من الأنمي المترجم</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-gray-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-primary text-2xl">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">استمتع بالمشاهدة</h3>
+                    <p class="text-gray-400">شاهد بجودة عالية وترجمة احترافية</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Replace the existing Premium Features Section with this -->
+        <section class="mb-16 bg-gray-800 p-12 rounded-lg relative overflow-hidden">
+            <!-- Background decorative elements -->
+            <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                <i class="fas fa-star absolute top-10 left-10 text-4xl text-primary"></i>
+                <i class="fas fa-crown absolute bottom-10 right-10 text-5xl text-primary"></i>
+                <i class="fas fa-gem absolute top-1/2 left-1/4 text-3xl text-primary"></i>
+            </div>
+
+            <div class="relative z-10">
+                <h3 class="text-4xl font-bold mb-6 text-center">
+                    <span class="text-primary">اكتشف قوة</span>
+                    <span class="block mt-2">العضوية المميزة</span>
+                </h3>
+
+                <p class="text-xl text-gray-400 text-center max-w-2xl mx-auto mb-8">
+                    انضم إلى عائلة Otaku4U المميزة واستمتع بتجربة مشاهدة فريدة مع مجموعة حصرية من المميزات
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-8 mb-10">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-primary text-xl"></i>
+                        <span>بدون إعلانات</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-primary text-xl"></i>
+                        <span>جودة 4K</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-primary text-xl"></i>
+                        <span>تحميل غير محدود</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-primary text-xl"></i>
+                        <span>مشاهدة مبكرة</span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="premium.html"
+                        class="group bg-primary text-background px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3 hover:bg-opacity-90 transform hover:scale-105 transition-all duration-300">
+                        اكتشف جميع المميزات
+                        <i class="fas fa-crown group-hover:animate-bounce"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="mb-12">
+            <h3 class="text-3xl font-bold mb-6 text-center">انضم إلى مجتمعنا</h3>
+            <p class="text-center mb-6">كن جزءاً من مجتمع Otaku4U وشارك شغفك بالأنمي مع الآلاف من محبي الأنمي</p>
+            <div class="flex justify-center space-x-4 space-x-reverse">
+                <a href="#"
+                    class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors duration-300 w-12 h-12 flex items-center justify-center">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#"
+                    class="bg-pink-600 text-white p-3 rounded-full hover:bg-pink-700 transition-colors duration-300 w-12 h-12 flex items-center justify-center">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#"
+                    class="bg-blue-400 text-white p-3 rounded-full hover:bg-blue-500 transition-colors duration-300 w-12 h-12 flex items-center justify-center">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#"
+                    class="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition-colors duration-300 w-12 h-12 flex items-center justify-center">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </section>
+
+        <section class="text-center">
+            <h3 class="text-3xl font-bold mb-6">جاهز للانطلاق؟</h3>
+            <a href="home.html"
+                class="bg-primary text-background px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-80 transition-colors duration-300 inline-block">
+                ابدأ رحلتك في عالم الأنمي
+                <i class="fas fa-rocket mr-2"></i>
+            </a>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const welcomeSection = document.querySelector('section:first-of-type'); // Gets the first section (welcome section)
+
+            window.addEventListener('scroll', function () {
+                // Get the bottom position of the welcome section
+                const welcomeSectionBottom = welcomeSection.offsetTop + welcomeSection.offsetHeight;
+
+                // Check if we've scrolled past the welcome section
+                if (window.scrollY > welcomeSectionBottom) {
+                    scrollToTopBtn.style.opacity = '1';
+                } else {
+                    scrollToTopBtn.style.opacity = '0';
+                }
+            });
+
+            // Add click event to scroll to top
+            scrollToTopBtn.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <button id="scrollToTopBtn"
+        class="fixed bottom-5 right-5 bg-primary text-background p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 ease-in-out z-50 hover:bg-opacity-80">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+
+</html>

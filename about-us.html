@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن | Otaku4U</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        background: '#1A1A2E',
+                        text: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1A1A2E;
+            color: #FFFFFF;
+            zoom: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+        }
+
+        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            /* Dark background for the track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            /* Primary color for the thumb */
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+            /* Darker shade on hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1a1a1a;
+            /* thumb and track colors */
+        }
+
+        #scrollToTopBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #FF8C8C;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-text">
+    <div class="relative overflow-hidden">
+        <!-- Animated Background Particles -->
+        <div class="absolute inset-0 z-0">
+            <div id="particles-js"></div>
+        </div>
+
+        <main class="container mx-auto px-4 py-8 relative z-10">
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl font-bold mb-6 text-primary">Otaku4U </h1>
+                <p class="text-xl mb-8">عالمك المثالي للأنمي</p>
+            </div>
+
+            <!-- About Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+                <div class="card p-8">
+                    <img src="images/anime-moon-landscape.jpg" alt="Otaku4U Team"
+                        class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                </div>
+                <div>
+                    <h2 class="text-4xl font-bold mb-6 gradient-text">قصتنا</h2>
+                    <p class="text-lg mb-4 leading-relaxed">
+                        منذ عام 2020، ونحن نسعى لتحقيق رؤية واحدة: جعل عالم الأنمي في متناول الجميع. نحن لسنا مجرد منصة
+                        للمشاهدة، بل نحن مجتمع متكامل يجمع عشاق الأنمي من جميع أنحاء العالم العربي.
+                    </p>
+                    <div class="flex gap-4 mt-6">
+                        <div class="text-center">
+                            <span class="block text-3xl font-bold text-primary">+10,000</span>
+                            <span class="text-gray-400">مستخدم نشط</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="block text-3xl font-bold text-secondary">+1,000</span>
+                            <span class="text-gray-400">عنوان أنمي</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Section -->
+            <div class="mb-16 bg-gray-800 p-12 rounded-lg" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-6 gradient-text">مهمتنا</h2>
+                <p class="text-lg mb-4 leading-relaxed">
+                    نسعى في Otaku4U إلى توفير منصة شاملة لعشاق الأنمي في العالم العربي، حيث يمكنهم الاستمتاع بمحتوى عالي
+                    الجودة، والتواصل مع مجتمع متحمس، وتوسيع آفاقهم في عالم الأنمي. نحن ملتزمون بتقديم تجربة فريدة تجمع
+                    بين الترفيه والتعلم والتواصل الاجتماعي.
+                </p>
+            </div>
+
+            <!-- Values Section -->
+            <div class="mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-6 gradient-text text-center">قيمنا</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <i class="fas fa-heart text-4xl text-primary mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">الشغف</h3>
+                        <p class="text-gray-300">نحن شغوفون بالأنمي ونسعى لنقل هذا الشغف لمجتمعنا</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <i class="fas fa-users text-4xl text-secondary mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">المجتمع</h3>
+                        <p class="text-gray-300">نؤمن بقوة المجتمع ونعمل على تعزيز الروابط بين أعضائنا</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <i class="fas fa-star text-4xl text-primary mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">الجودة</h3>
+                        <p class="text-gray-300">نلتزم بتقديم أعلى مستويات الجودة في كل ما نقدمه</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Section -->
+            <div class="mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-6 gradient-text text-center">رحلتنا</h2>
+                <div class="relative">
+                    <div class=" absolute w-full h-full bg-gray-800" style="top: 50%; transform: translateY(-50%);">
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-center mb-8">
+                            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                                <h3 class="text-xl font-bold mb-2">2020</h3>
+                                <p class="text-gray-300">تأسيس Otaku4U</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center mb-8">
+                            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                                <h3 class="text-xl font-bold mb-2">2021</h3>
+                                <p class="text-gray-300">إطلاق المنصة الأولى</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center mb-8">
+                            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                                <h3 class="text-xl font-bold mb-2">2022</h3>
+                                <p class="text-gray-300">توسيع المجتمع وتحسين الخدمات</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="mb-16 bg-gray-800 p-12 rounded-lg relative overflow-hidden" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-6">انضم إلى مجتمعنا اليوم</h2>
+                <p class="text-lg mb-8">اكتشف عالماً من الأنمي المذهل مع آلاف المستخدمين المتحمسين</p>
+                <div class="flex justify-center gap-4">
+                    <a href="#"
+                        class="bg-primary text-background px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-80 transition-all duration-300 transform hover:-translate-y-1">
+                        سجل الآن
+                    </a>
+                    <a href="#"
+                        class="border-2 border-primary text-primary px-8 py-3 rounded-full text-lg font-semibold hover:bg-primary hover:text-background transition-all duration-300 transform hover:-translate-y-1">
+                        اكتشف المزيد
+                    </a>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-6 text-center">فريقنا المتميز</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="mb-16 bg-gray-800 p-12 rounded-lg relative overflow-hidden">
+                        <img src="images/anime-moon-landscape.jpg" alt="Team Member"
+                            class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-bold mb-2">أحمد محمد</h3>
+                        <p class="text-gray-400">مؤسس الموقع</p>
+                        <div class="flex justify-center gap-4 mt-4">
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <!-- Add more team members similarly -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000, // animation duration
+            easing: 'ease-in-out', // animation easing
+            once: true, // animation fire only once
+        });
+
+        particlesJS.load('particles-js', 'particles.json');
+        // Get the scroll to top button and the قصتنا section
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        const storySection = document.querySelector('.gradient-text');
+
+        // Function to handle scroll event
+        function handleScroll() {
+            // Get the position of the قصتنا section
+            const storySectionPosition = storySection.getBoundingClientRect().top;
+
+            // Show button when قصتنا section is passed (negative value means we've scrolled past it)
+            if (storySectionPosition < 0) {
+                scrollToTopBtn.style.opacity = '1';
+            } else {
+                scrollToTopBtn.style.opacity = '0';
+            }
+        }
+
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+
+        // Add click event to scroll to top
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <button id="scrollToTopBtn"
+        class="fixed bottom-5 right-5 bg-primary text-background p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 ease-in-out z-50 hover:bg-opacity-80">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+
+</html>

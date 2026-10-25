@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آخر الأخبار | Otaku4U</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        background: '#1A1A2E',
+                        text: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1A1A2E;
+            color: #FFFFFF;
+            zoom: 1.2;
+        }
+
+        .news-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #scrollToTopBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        #scrollToTopBtn.show {
+            opacity: 1;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #FF8C8C;
+            transform: scale(1.1);
+        }
+
+        #newsModal {
+            overflow-y: hidden;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+        }
+
+        #modalContent {
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            /* Dark background for the track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            /* Primary color for the thumb */
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+            /* Darker shade on hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1a1a1a;
+            /* thumb and track colors */
+        }
+    </style>
+</head>
+
+<body class="bg-background text-text">
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-gray-900 py-12 mb-8">
+            <div class="container mx-auto px-4">
+                <!-- Featured News Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Featured News Content -->
+                    <div class="flex flex-col justify-center">
+                        <span class="text-primary mb-2">خبر مميز</span>
+                        <h1 class="text-4xl font-bold mb-4">عنوان الخبر المميز</h1>
+                        <p class="text-gray-400 mb-6">هذا الخبر المميز يحتوي على أحدث التطورات والأحداث المهمة في عالم
+                            الأنمي.
+                            تابع المزيد من التفاصيل المثيرة والحصرية.</p>
+                        <div class="flex items-center gap-4">
+                            <button onclick="showModal('featured')"
+                                class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all duration-300">
+                                اقرأ المزيد
+                            </button>
+                            <span class="text-gray-400"><i class="fas fa-clock ml-2"></i>منذ 3 ساعات</span>
+                        </div>
+                    </div>
+                    <!-- Featured News Image -->
+                    <div class="relative cursor-pointer" onclick="showModal('featured')">
+                        <img src="images/anime-moon-landscape.jpg" alt="Featured News"
+                            class="w-full h-[400px] object-cover rounded-lg shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="container mx-auto px-4 mb-8">
+            <div class="flex items-center justify-center gap-4">
+                <!-- Search Input -->
+                <div class="relative group flex-grow max-w-md">
+                    <input type="text" placeholder="ابحث عن الأخبار..."
+                        class="w-full bg-background border-2 border-primary/30 hover:border-primary focus:border-primary rounded-xl px-6 py-3 pr-12 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/20">
+                    <i
+                        class="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-primary/70 group-hover:text-primary transition-colors duration-300"></i>
+                </div>
+                <button
+                    class="bg-primary hover:bg-primary/90 text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 flex items-center gap-2 hover:scale-105">
+                    <i class="fas fa-search text-white"></i>
+                    بحث
+                </button>
+            </div>
+        </div>
+        <h2 class="text-3xl font-bold text-right mb-8">آخر الأخبار</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- News Card 1 -->
+            <div class="news-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="images/anime-moon-landscape.jpg" alt="News Image 1" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-0 left-0 bg-primary text-background py-1 px-3 rounded-tr-lg">
+                        جديد
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="text-xl font-semibold mb-2">عنوان الخبر 1</h4>
+                    <p class="text-gray-400 mb-2 text-sm"><i class="fas fa-clock mr-2"></i>2023-05-20</p>
+                    <p class="text-sm mb-3">ملخص قصير للخبر الأول...</p>
+                    <div class="flex justify-between items-center">
+                        <span class="bg-secondary text-background px-2 py-1 rounded-full text-xs">أخبار
+                            الأنمي</span>
+                        <!-- In your news cards, modify the "اقرأ المزيد" link like this: -->
+                        <a href="#" onclick="showModal('news1'); return false;"
+                            class="text-primary hover:underline text-sm">اقرأ المزيد</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Card 2 -->
+            <div class="news-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="images/anime-moon-landscape.jpg" alt="News Image 2" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-0 left-0 bg-primary text-background py-1 px-3 rounded-tr-lg">
+                        جديد
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="text-xl font-semibold mb-2">عنوان الخبر 2</h4>
+                    <p class="text-gray-400 mb-2 text-sm"><i class="fas fa-clock mr-2"></i>2023-05-22</p>
+                    <p class="text-sm mb-3">ملخص قصير للخبر الثاني...</p>
+                    <div class="flex justify-between items-center">
+                        <span class="bg-secondary text-background px-2 py-1 rounded-full text-xs">إعلانات</span>
+                        <!-- In your news cards, modify the "اقرأ المزيد" link like this: -->
+                        <a href="#" onclick="showModal('news1'); return false;"
+                            class="text-primary hover:underline text-sm">اقرأ المزيد</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Card 3 -->
+            <div class="news-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="images/anime-moon-landscape.jpg" alt="News Image 3" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-0 left-0 bg-primary text-background py-1 px-3 rounded-tr-lg">
+                        جديد
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="text-xl font-semibold mb-2">عنوان الخبر 3</h4>
+                    <p class="text-gray-400 mb-2 text-sm"><i class="fas fa-clock mr-2"></i>2023-05-25</p>
+                    <p class="text-sm mb-3">ملخص قصير للخبر الثالث...</p>
+                    <div class="flex justify-between items-center">
+                        <span class="bg-secondary text-background px-2 py-1 rounded-full text-xs">مراجعات</span>
+                        <!-- In your news cards, modify the "اقرأ المزيد" link like this: -->
+                        <a href="#" onclick="showModal('news1'); return false;"
+                            class="text-primary hover:underline text-sm">اقرأ المزيد</a>
+                    </div>
+                </div>
+            </div>
+            <!-- News Card 1 -->
+            <div class="news-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="images/anime-moon-landscape.jpg" alt="News Image 1" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-0 left-0 bg-primary text-background py-1 px-3 rounded-tr-lg">
+                        جديد
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="text-xl font-semibold mb-2">عنوان الخبر 1</h4>
+                    <p class="text-gray-400 mb-2 text-sm"><i class="fas fa-clock mr-2"></i>2023-05-20</p>
+                    <p class="text-sm mb-3">ملخص قصير للخبر الأول...</p>
+                    <div class="flex justify-between items-center">
+                        <span class="bg-secondary text-background px-2 py-1 rounded-full text-xs">أخبار
+                            الأنمي</span>
+                        <!-- In your news cards, modify the "اقرأ المزيد" link like this: -->
+                        <a href="#" onclick="showModal('news1'); return false;"
+                            class="text-primary hover:underline text-sm">اقرأ المزيد</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Card 2 -->
+            <div class="news-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="images/anime-moon-landscape.jpg" alt="News Image 2" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-0 left-0 bg-primary text-background py-1 px-3 rounded-tr-lg">
+                        جديد
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="text-xl font-semibold mb-2">عنوان الخبر 2</h4>
+                    <p class="text-gray-400 mb-2 text-sm"><i class="fas fa-clock mr-2"></i>2023-05-22</p>
+                    <p class="text-sm mb-3">ملخص قصير للخبر الثاني...</p>
+                    <div class="flex justify-between items-center">
+                        <span class="bg-secondary text-background px-2 py-1 rounded-full text-xs">إعلانات</span>
+                        <!-- In your news cards, modify the "اقرأ المزيد" link like this: -->
+                        <a href="#" onclick="showModal('news1'); return false;"
+                            class="text-primary hover:underline text-sm">اقرأ المزيد</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Card 3 -->
+            <div class="news-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="images/anime-moon-landscape.jpg" alt="News Image 3" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-0 left-0 bg-primary text-background py-1 px-3 rounded-tr-lg">
+                        جديد
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="text-xl font-semibold mb-2">عنوان الخبر 3</h4>
+                    <p class="text-gray-400 mb-2 text-sm"><i class="fas fa-clock mr-2"></i>2023-05-25</p>
+                    <p class="text-sm mb-3">ملخص قصير للخبر الثالث...</p>
+                    <div class="flex justify-between items-center">
+                        <span class="bg-secondary text-background px-2 py-1 rounded-full text-xs">مراجعات</span>
+                        <!-- In your news cards, modify the "اقرأ المزيد" link like this: -->
+                        <a href="#" onclick="showModal('news1'); return false;"
+                            class="text-primary hover:underline text-sm">اقرأ المزيد</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-12 flex justify-center">
+            <nav class="inline-flex items-center gap-2">
+                <!-- Previous Button -->
+                <a href="#"
+                    class="flex items-center px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 group">
+                    <i
+                        class="fas fa-chevron-right ml-2 transform group-hover:-translate-x-1 transition-transform duration-300"></i>
+                    <span>السابق</span>
+                </a>
+
+                <!-- Page Numbers -->
+                <div class="flex gap-2">
+                    <a href="#"
+                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 hover:scale-105">1</a>
+                    <a href="#"
+                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/30">2</a>
+                    <a href="#"
+                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 hover:scale-105">3</a>
+                    <span class="w-10 h-10 flex items-center justify-center text-gray-400">...</span>
+                    <a href="#"
+                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 hover:scale-105">10</a>
+                </div>
+
+                <!-- Next Button -->
+                <a href="#"
+                    class="flex items-center px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 group">
+                    <span>التالي</span>
+                    <i
+                        class="fas fa-chevron-left mr-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Modal structure -->
+    <div id="newsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-gray-800 rounded-lg max-w-2xl w-full relative m-4" style="max-height: 90vh;">
+            <!-- Close button -->
+            <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-400 hover:text-white z-50">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <!-- Modal content -->
+            <div class="flex flex-col h-full">
+                <!-- Image container with fixed height -->
+                <div class="h-48 md:h-64">
+                    <img id="modalImage" src="" alt="News Image" class="w-full h-full object-cover rounded-t-lg">
+                </div>
+
+                <!-- Content container -->
+                <div class="p-6 flex-1 overflow-hidden">
+                    <h3 id="modalTitle" class="text-2xl font-bold mb-3"></h3>
+                    <p id="modalDate" class="text-gray-400 mb-3"><i class="fas fa-clock mr-2"></i></p>
+                    <!-- Scrollable content area -->
+                    <div id="modalContent" class="text-gray-200 overflow-y-auto"
+                        style="max-height: calc(60vh - 250px);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Sample news data (you would typically fetch this from a database)
+        const newsData = {
+            'featured': {
+                title: 'عنوان الخبر المميز',
+                date: 'منذ 3 ساعات',
+                image: 'images/anime-moon-landscape.jpg',
+                content: 'هذا هو المحتوى الكامل للخبر المميز. يمكنك إضافة نص طويل هنا مع كافة التفاصيل المتعلقة بالخبر. يمكن أن يتضمن هذا المحتوى فقرات متعددة، صور إضافية، وتفاصيل كاملة عن الموضوع. هذا الخبر المميز يحتوي على أحدث التطورات والأحداث المهمة في عالم الأنمي.'
+            },
+            'news1': {
+                title: 'عنوان الخبر 1',
+                date: '2023-05-20',
+                image: 'images/anime-moon-landscape.jpg',
+                content: 'في عالم الأنمي، تمثل القصص والشخصيات جزءًا كبيرًا من تجربة المشاهدة. من خلال الحكايات المعقدة والمشوقة، يتمكن المشاهدون من استكشاف عوالم جديدة ومثيرة. على سبيل المثال، في سلسلة "ناروتو"، نرى رحلة نينجا شاب يسعى لتحقيق حلمه في أن يصبح هوكاجي، وهو أعلى منصب في قريته. تتضمن القصة الكثير من التحديات والصراعات، بما في ذلك المواجهات مع أعداء أقوياء، واكتشاف قوى جديدة، وبناء صداقات قوية. تتناول السلسلة مواضيع عميقة مثل الصداقة، والخيانة، والتضحية، مما يجعلها جذابة لمجموعة واسعة من المشاهدين. بالإضافة إلى ذلك، تتميز الرسوم المتحركة بجودة عالية، مما يزيد من جاذبيتها. هناك أيضًا العديد من الأنميات الأخرى التي تستحق المشاهدة، مثل "هجوم العمالقة" و"مهاجمو الظلام"، حيث كل واحدة منها تقدم تجربة فريدة من نوعها. في "هجوم العمالقة"، تتناول القصة صراع البشرية ضد العمالقة الذين يهددون وجودهم، مما يخلق توترًا دائمًا ويجعل المشاهدين متشوقين لمعرفة ما سيحدث بعد ذلك. علاوة على ذلك، تمثل الأنمي مصدر إلهام للكثير من الفنانين والمبدعين حول العالم. العديد من الرسامين والمصممين يستلهمون من الأنمي لإنشاء أعمال فنية جديدة، سواء كانت رسومات أو تصميمات أو حتى قصص جديدة. في النهاية، يُعتبر الأنمي أكثر من مجرد ترفيه؛ إنه فن يعكس ثقافات متعددة ويجمع بين الناس من مختلف الخلفيات. مع تزايد شعبية الأنمي في السنوات الأخيرة، أصبح له تأثير كبير على صناعة الترفيه العالمية، مما يجعله جزءًا لا يتجزأ من الثقافة المعاصرة.'
+            },
+            // Add more news items as needed
+        };
+
+        function showModal(newsId) {
+            const modal = document.getElementById('newsModal');
+            const news = newsData[newsId];
+
+            // Update modal content
+            document.getElementById('modalTitle').textContent = news.title;
+            document.getElementById('modalDate').innerHTML = `<i class="fas fa-clock mr-2"></i>${news.date}`;
+            document.getElementById('modalImage').src = news.image;
+            document.getElementById('modalContent').textContent = news.content;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('newsModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('newsModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        // Add this event listener to close modal when clicking outside
+        document.getElementById('newsModal').addEventListener('click', function (e) {
+            // Check if the click was on the modal backdrop (not on the modal content)
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        function showModal(newsId) {
+            const modal = document.getElementById('newsModal');
+            const news = newsData[newsId];
+
+            // Update modal content
+            document.getElementById('modalTitle').textContent = news.title;
+            document.getElementById('modalDate').innerHTML = `<i class="fas fa-clock mr-2"></i>${news.date}`;
+            document.getElementById('modalImage').src = news.image;
+            document.getElementById('modalContent').textContent = news.content;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('newsModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Re-enable background scrolling
+        }
+
+        // Also add keyboard support to close modal with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the button and the news title
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const newsTitle = document.querySelector('h2'); // This selects the "آخر الأخبار" title
+
+            // Function to handle scroll event
+            function handleScroll() {
+                // Get the position of the news title
+                const newsTitlePosition = newsTitle.offsetTop;
+
+                // Show/hide button based on scroll position
+                if (window.pageYOffset > newsTitlePosition) {
+                    scrollToTopBtn.classList.remove('hidden');
+                    scrollToTopBtn.classList.add('flex');
+                    scrollToTopBtn.style.opacity = '1';
+                } else {
+                    scrollToTopBtn.style.opacity = '0';
+                    setTimeout(() => {
+                        scrollToTopBtn.classList.add('hidden');
+                        scrollToTopBtn.classList.remove('flex');
+                    }, 300);
+                }
+            }
+
+            // Function to scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll);
+
+            // Add click event listener to the button
+            scrollToTopBtn.addEventListener('click', scrollToTop);
+        });
+    </script>
+    <button id="scrollToTopBtn"
+        class="fixed bottom-5 right-5 bg-primary text-background p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 ease-in-out z-50 hover:bg-opacity-80">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+
+</html>

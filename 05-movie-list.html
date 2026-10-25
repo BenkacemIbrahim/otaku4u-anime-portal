@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otaku4U - قائمة الافلام</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        background: '#1A1A2E',
+                        text: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1A1A2E;
+            color: #FFFFFF;
+            zoom: 1.2;
+        }
+
+        .anime-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .anime-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .anime-card:hover::before {
+            opacity: 1;
+        }
+
+        .anime-card .movei-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .anime-card:hover .movei-info {
+            transform: translateY(0);
+        }
+
+        .filter-option:hover {
+            transform: translateX(-4px);
+        }
+
+        .filter-option {
+            transition: all 0.2s ease;
+        }
+
+        .form-checkbox,
+        .form-radio {
+            width: 1.2rem;
+            height: 1.2rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-checkbox:checked,
+        .form-radio:checked {
+            animation: pulse 0.2s ease;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            /* Dark background for the track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            /* Primary color for the thumb */
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+            /* Darker shade on hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1a1a1a;
+            /* thumb and track colors */
+        }
+
+        #scrollToTopBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        #scrollToTopBtn.show {
+            opacity: 1;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #FF8C8C;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-text">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Advanced Search Section -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">البحث المتقدم</h2>
+            <div class="flex flex-wrap gap-4">
+                <!-- Search Input -->
+                <input type="text" placeholder="اسم الفيلم"
+                    class="p-2 rounded-lg bg-gray-800 text-white w-64 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300">
+
+                <select
+                    class="p-2 rounded-lg bg-gray-800 text-white w-40 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300">
+                    <option value="">سنة الإصدار</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                </select>
+
+                <select
+                    class="p-2 rounded-lg bg-gray-800 text-white w-40 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300">
+                    <option value="">التصنيف</option>
+                    <option value="action">أكشن</option>
+                    <option value="drama">دراما</option>
+                    <option value="comedy">كوميدي</option>
+                    <option value="horror">رعب</option>
+                    <option value="romance">رومانسي</option>
+                    <option value="thriller">إثارة</option>
+                </select>
+
+                <select
+                    class="p-2 rounded-lg bg-gray-800 text-white w-40 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300">
+                    <option value="">ترتيب حسب</option>
+                    <option value="latest">أحدث الإصدارات</option>
+                    <option value="rating">الأعلى تقييماً</option>
+                    <option value="views">الأكثر مشاهدة</option>
+                    <option value="alphabetical">أبجدي</option>
+                </select>
+
+                <button
+                    class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-opacity-80 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-search"></i>
+                    بحث
+                </button>
+            </div>
+        </section>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar for Season Selection -->
+            <!-- Sidebar -->
+            <aside class="w-full md:w-1/4 bg-gray-800/30 p-6 rounded-lg backdrop-blur-sm top-4 h-fit">
+
+                <!-- Runtime Range -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-clock ml-2 text-primary"></i>
+                        مدة الفيلم
+                    </h3>
+                    <div class="space-y-3">
+                        <label
+                            class="filter-option flex items-center p-2 rounded-lg hover:bg-gray-700/50 transition-all cursor-pointer">
+                            <input type="radio" name="duration"
+                                class="form-radio text-primary rounded border-gray-600 focus:ring-primary">
+                            <span class="mr-3">أقل من ساعة</span>
+                        </label>
+                        <label
+                            class="filter-option flex items-center p-2 rounded-lg hover:bg-gray-700/50 transition-all cursor-pointer">
+                            <input type="radio" name="duration"
+                                class="form-radio text-primary rounded border-gray-600 focus:ring-primary">
+                            <span class="mr-3">1-2 ساعة</span>
+                        </label>
+                        <label
+                            class="filter-option flex items-center p-2 rounded-lg hover:bg-gray-700/50 transition-all cursor-pointer">
+                            <input type="radio" name="duration"
+                                class="form-radio text-primary rounded border-gray-600 focus:ring-primary">
+                            <span class="mr-3">أكثر من ساعتين</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Apply Filters Button -->
+                <button
+                    class="w-full bg-primary hover:bg-primary/80 text-white py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                    <i class="fas fa-filter"></i>
+                    تطبيق الفلترة
+                </button>
+            </aside>
+
+            <!-- Main Content - Anime Cards -->
+            <main class="container mx-auto">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-6">
+                    <!-- Anime Card 1 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+
+                    <!-- Anime Card 2 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+
+                    <!-- Anime Card 3 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+
+                    <!-- Anime Card 4 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                    <!-- Anime Card 5 -->
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="Anime Title"
+                            class="w-full object-cover h-[400px]">
+                        <div class="movei-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الفلم</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">MV</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للفلم...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-12 flex justify-center">
+                    <nav class="inline-flex items-center gap-2">
+                        <!-- Previous Button -->
+                        <a href="#"
+                            class="flex items-center px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 group">
+                            <i
+                                class="fas fa-chevron-right ml-2 transform group-hover:-translate-x-1 transition-transform duration-300"></i>
+                            <span>السابق</span>
+                        </a>
+
+                        <!-- Page Numbers -->
+                        <div class="flex gap-2">
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 hover:scale-105">1</a>
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/30">2</a>
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 hover:scale-105">3</a>
+                            <span class="w-10 h-10 flex items-center justify-center text-gray-400">...</span>
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 hover:scale-105">10</a>
+                        </div>
+
+                        <!-- Next Button -->
+                        <a href="#"
+                            class="flex items-center px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 group">
+                            <span>التالي</span>
+                            <i
+                                class="fas fa-chevron-left mr-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </a>
+                    </nav>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the button and the search section
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const searchSection = document.querySelector('section');
+
+            // Function to handle scroll event
+            function handleScroll() {
+                // Get the position of the search section
+                const searchSectionPosition = searchSection.offsetTop + searchSection.offsetHeight;
+
+                // Show/hide button based on scroll position
+                if (window.pageYOffset > searchSectionPosition) {
+                    scrollToTopBtn.classList.remove('hidden');
+                    scrollToTopBtn.classList.add('flex');
+                    scrollToTopBtn.style.opacity = '1';
+                } else {
+                    scrollToTopBtn.style.opacity = '0';
+                    setTimeout(() => {
+                        scrollToTopBtn.classList.add('hidden');
+                        scrollToTopBtn.classList.remove('flex');
+                    }, 300);
+                }
+            }
+
+            // Function to scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll);
+
+            // Add click event listener to the button
+            scrollToTopBtn.addEventListener('click', scrollToTop);
+        });
+    </script>
+    <button id="scrollToTopBtn"
+        class="fixed bottom-5 right-5 bg-primary text-background p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 ease-in-out z-50 hover:bg-opacity-80">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+
+</html>

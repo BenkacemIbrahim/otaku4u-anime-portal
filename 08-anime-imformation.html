@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلومات الأنمي | Otaku4U</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        background: '#1A1A2E',
+                        text: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1A1A2E;
+            color: #FFFFFF;
+            zoom: 1.2;
+        }
+
+        .hero-background {
+            background-image: url('images/anime-moon-landscape.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .anime-card .anime-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .anime-card:hover .anime-info {
+            transform: translateY(0);
+        }
+
+        .character-cards-container {
+            display: flex;
+            flex-direction: row-reverse;
+            /* This will align items from right to left */
+            overflow-x: auto;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scroll-behavior: smooth;
+        }
+
+        .character-cards-container::-webkit-scrollbar {
+            display: none;
+            /* WebKit */
+        }
+
+        .character-card {
+            flex: 0 0 auto;
+            width: 250px;
+            /* Adjust as needed */
+            margin-left: 1rem;
+            /* Changed from margin-right to margin-left */
+        }
+
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .scroll-button:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .scroll-button.right {
+            right: 5px;
+            /* Position on the left side to scroll right */
+        }
+
+        .blur-overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100px;
+            /* Adjust this value to control the height of the blur effect */
+            background: rgba(26, 26, 46, 0.5);
+            /* Matching the background color with some transparency */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        #scrollToTopBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #FF8C8C;
+            transform: scale(1.1);
+        }
+
+        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            /* Dark background for the track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            /* Primary color for the thumb */
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+            /* Darker shade on hover */
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1a1a1a;
+            /* thumb and track colors */
+        }
+    </style>
+</head>
+
+<body class="bg-background text-text">
+
+    <div id="heroSection" class="hero-background relative">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="container mx-auto px-4 py-16 relative">
+            <!-- Anime Information Section -->
+            <div class="flex flex-col md:flex-row gap-8 mb-12">
+                <!-- Anime Poster -->
+                <div class="md:w-1/3">
+                    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="images/anime-moon-landscape.jpg" alt="اسم الأنمي"
+                            class="w-full object-cover h-[600px] transition-transform duration-300 transform group-hover:scale-105">
+                        <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                            <span
+                                class="bg-primary text-background px-3 py-1 rounded-full text-sm font-semibold shadow-md">أنمي</span>
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                            <button id="watchTrailerBtn"
+                                class="bg-primary text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-colors transform hover:scale-105 duration-300 shadow-lg">
+                                <i class="fas fa-play mr-2"></i> مشاهدة العرض الدعائي
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-primary">اسم الأنمي</h1>
+                    <p class="text-gray-300 mb-6 text-lg leading-relaxed">وصف مفصل للأنمي يظهر هنا. يمكن أن يكون هذا
+                        النص
+                        طويلاً ويصف القصة والشخصيات الرئيسية وأي معلومات أخرى ذات صلة. يمكن أن يتضمن أيضًا معلومات عن
+                        مؤلف
+                        العمل الأصلي وفريق الإنتاج.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-3 text-secondary">معلومات إضافية</h3>
+                            <ul class="space-y-2">
+                                <li><strong class="text-primary">الاستديو:</strong> اسم الاستديو</li>
+                                <li><strong class="text-primary">تاريخ الإصدار:</strong> 2023</li>
+                                <li><strong class="text-primary">عدد الحلقات:</strong> 12</li>
+                                <li><strong class="text-primary">الحالة:</strong> مستمر</li>
+                                <li><strong class="text-primary">الموسم:</strong> صيف 2023</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-3 text-secondary">الأنواع</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="bg-gray-700 px-3 py-1 rounded-full text-sm shadow-md hover:bg-gray-600 transition-colors duration-300">أكشن</span>
+                                <span
+                                    class="bg-gray-700 px-3 py-1 rounded-full text-sm shadow-md hover:bg-gray-600 transition-colors duration-300">مغامرة</span>
+                                <span
+                                    class="bg-gray-700 px-3 py-1 rounded-full text-sm shadow-md hover:bg-gray-600 transition-colors duration-300">خيال</span>
+                                <span
+                                    class="bg-gray-700 px-3 py-1 rounded-full text-sm shadow-md hover:bg-gray-600 transition-colors duration-300">دراما</span>
+                                <span
+                                    class="bg-gray-700 px-3 py-1 rounded-full text-sm shadow-md hover:bg-gray-600 transition-colors duration-300">كوميديا</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modify the buttons section in the hero (where the "Watch Now" button is) -->
+                    <div class="flex gap-4"> <!-- Add this wrapper div for the buttons -->
+                        <button id="infoWatchButton"
+                            class="bg-primary text-background px-8 py-4 rounded-full text-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-play ml-3"></i> مشاهدة الآن
+                        </button>
+
+                        <button id="addToFavoritesButton"
+                            class="bg-gray-800 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center">
+                            <i class="fas fa-heart ml-3"></i> إضافة للمفضلة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="blur-overlay" style="bottom: -50px;"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-12 relative">
+        <div class="blur-overlay" style="top: -50px;"></div>
+        <!-- Characters Section -->
+        <div class="mb-12 relative">
+            <h2 class="text-3xl font-bold mb-6">الشخصيات الرئيسية</h2>
+            <div class="character-cards-container">
+                <!-- Character Card -->
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-card anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الشخصية" class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span
+                            class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">شخصية</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info text-center">
+                            <h4 class="text-white text-lg font-semibold">اسم الشخصية</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">الدور</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف الشخصية...</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ... -->
+            </div>
+            <button class="scroll-button right">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+
+        <!-- Episodes Section -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-6">الحلقات</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- Episode items -->
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 1</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 2</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 3</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 4</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 5</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 6</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 7</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 8</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 9</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 10</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 11</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+                <a href="#"
+                    class="bg-gray-800 p-4 rounded-lg text-center hover:bg-gray-700 transition-colors duration-300">
+                    <span class="block text-xl font-bold mb-2">الحلقة 12</span>
+                    <span class="text-gray-400">24:00</span>
+                </a>
+            </div>
+            <div class="mt-8 text-center">
+                <a href="watching.html"
+                    class="inline-flex items-center justify-center bg-primary text-background px-8 py-4 rounded-full text-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-play-circle ml-3"></i>
+                    مشاهدة جميع الحلقات
+                </a>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="mb-12">
+            <div class="mt-6 bg-gray-800 rounded-lg p-6">
+                <h2 class="text-2xl font-bold mb-6">آراء المشاهدين</h2>
+                <div id="commentsList" class="space-y-4">
+                    <!-- Initial visible comments -->
+                    <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                        <div class="flex items-center mb-2">
+                            <img src="images/anime-moon-landscape.jpg" alt="أنمي_عاشق"
+                                class="w-10 h-10 rounded-full mr-3">
+                            <div>
+                                <h4 class="font-bold">أنمي_عاشق</h4>
+                                <span class="text-xs text-gray-400">2024/1/1 12:00</span>
+                            </div>
+                        </div>
+                        <p class="mb-2">أنمي رائع! القصة مشوقة والرسم جميل جداً.</p>
+                    </div>
+
+                    <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                        <div class="flex items-center mb-2">
+                            <img src="images/anime-moon-landscape.jpg" alt="ناروتو_فان"
+                                class="w-10 h-10 rounded-full mr-3">
+                            <div>
+                                <h4 class="font-bold">ناروتو_فان</h4>
+                                <span class="text-xs text-gray-400">2024/1/1 11:30</span>
+                            </div>
+                        </div>
+                        <p class="mb-2">الشخصيات مميزة والأحداث مثيرة. أتطلع لمشاهدة المزيد!</p>
+                    </div>
+
+                    <!-- Hidden comments that will be shown when clicking "show more" -->
+                    <div id="hiddenComments" class="hidden space-y-4">
+                        <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                            <div class="flex items-center mb-2">
+                                <img src="images/anime-moon-landscape.jpg" alt="ساسكي_كون"
+                                    class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <h4 class="font-bold">ساسكي_كون</h4>
+                                    <span class="text-xs text-gray-400">2024/1/1 11:00</span>
+                                </div>
+                            </div>
+                            <p class="mb-2">من أفضل الأنميات التي شاهدتها هذا الموسم.</p>
+                        </div>
+
+                        <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                            <div class="flex items-center mb-2">
+                                <img src="images/anime-moon-landscape.jpg" alt="لوفي_سان"
+                                    class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <h4 class="font-bold">لوفي_سان</h4>
+                                    <span class="text-xs text-gray-400">2024/1/1 10:30</span>
+                                </div>
+                            </div>
+                            <p class="mb-2">الموسيقى التصويرية رائعة والمعارك مثيرة جداً!</p>
+                        </div>
+
+                        <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                            <div class="flex items-center mb-2">
+                                <img src="images/anime-moon-landscape.jpg" alt="غوكو_سوبر"
+                                    class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <h4 class="font-bold">غوكو_سوبر</h4>
+                                    <span class="text-xs text-gray-400">2024/1/1 10:00</span>
+                                </div>
+                            </div>
+                            <p class="mb-2">تطور الشخصيات ممتاز والحبكة متماسكة. أنصح بالمشاهدة!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show More Button -->
+                <div class="text-center mt-6">
+                    <button id="showMoreBtn" onclick="toggleComments()"
+                        class="bg-primary text-white px-6 py-2 rounded-full hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+                        عرض المزيد من التعليقات
+                        <i class="fas fa-chevron-down mr-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Anime Section -->
+        <div>
+            <h2 class="text-3xl font-bold mb-6">أنميات ذات صلة</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- Related Anime Card -->
+                <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الأنمي ذو الصلة"
+                        class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">ذات
+                            صلة</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الأنمي ذو الصلة</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">نوع
+                                    الأنمي</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للأنمي...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الأنمي ذو الصلة"
+                        class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">ذات
+                            صلة</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الأنمي ذو الصلة</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">نوع
+                                    الأنمي</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للأنمي...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الأنمي ذو الصلة"
+                        class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">ذات
+                            صلة</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الأنمي ذو الصلة</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">نوع
+                                    الأنمي</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للأنمي...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الأنمي ذو الصلة"
+                        class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">ذات
+                            صلة</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الأنمي ذو الصلة</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">نوع
+                                    الأنمي</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للأنمي...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="images/anime-moon-landscape.jpg" alt="اسم الأنمي ذو الصلة"
+                        class="w-full object-cover h-[400px]">
+                    <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+                        <span class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">ذات
+                            صلة</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="anime-info">
+                            <h4 class="text-white text-lg font-semibold text-center">اسم الأنمي ذو الصلة</h4>
+                            <div class="flex items-center justify-center gap-2 mt-1">
+                                <span
+                                    class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">نوع
+                                    الأنمي</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mt-2">وصف قصير للأنمي...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="trailerModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-background p-4 rounded-lg shadow-lg max-w-3xl w-full">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold text-primary">العرض الدعائي</h3>
+                <button id="closeTrailerModal" class="text-gray-300 hover:text-white">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="relative" style="padding-bottom: 60%;"> <!-- Changed aspect ratio -->
+                <iframe id="trailerVideo" class="absolute top-0 left-0 w-full h-full" src="" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('infoWatchButton').addEventListener('click', function () {
+            alert('بدء المشاهدة من قسم المعلومات!');
+            // Here you can add logic to start playing the anime or navigate to a video player page
+        });
+
+        document.getElementById('addToFavoritesButton').addEventListener('click', function () {
+            // Toggle heart icon color and animation
+            const heartIcon = this.querySelector('.fa-heart');
+            heartIcon.classList.toggle('text-primary');
+
+            // Add animation class
+            this.classList.add('animate-pulse');
+            setTimeout(() => {
+                this.classList.remove('animate-pulse');
+            }, 1000);
+
+            // Show feedback to user
+            alert('تمت الإضافة إلى المفضلة!');
+            // Here you can add logic to actually save to favorites
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.querySelector('.character-cards-container');
+            const scrollButton = document.querySelector('.scroll-button');
+
+            scrollButton.addEventListener('click', function () {
+                container.scrollBy({
+                    left: 300, // Positive value to scroll right
+                    behavior: 'smooth'
+                });
+            });
+
+            // Optional: Hide scroll button when at the end
+            container.addEventListener('scroll', function () {
+                if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+                    scrollButton.style.display = 'none';
+                } else {
+                    scrollButton.style.display = 'flex';
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const heroSection = document.getElementById('heroSection');
+
+            window.addEventListener('scroll', function () {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+
+                if (window.pageYOffset > heroBottom) {
+                    scrollToTopBtn.classList.add('opacity-100');
+                    scrollToTopBtn.classList.remove('opacity-0');
+                } else {
+                    scrollToTopBtn.classList.add('opacity-0');
+                    scrollToTopBtn.classList.remove('opacity-100');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        function toggleComments() {
+            const hiddenComments = document.getElementById('hiddenComments');
+            const showMoreBtn = document.getElementById('showMoreBtn');
+
+            if (hiddenComments.classList.contains('hidden')) {
+                hiddenComments.classList.remove('hidden');
+                showMoreBtn.innerHTML = `عرض تعليقات أقل <i class="fas fa-chevron-up mr-2"></i>`;
+            } else {
+                hiddenComments.classList.add('hidden');
+                showMoreBtn.innerHTML = `عرض المزيد من التعليقات <i class="fas fa-chevron-down mr-2"></i>`;
+            }
+        }
+        const trailerButton = document.getElementById('watchTrailerBtn');
+        const trailerModal = document.getElementById('trailerModal');
+        const closeTrailerModal = document.getElementById('closeTrailerModal');
+        const trailerVideo = document.getElementById('trailerVideo');
+
+        trailerButton.addEventListener('click', () => {
+            // Use the specific video ID from the URL you provided
+            trailerVideo.src = 'https://www.youtube.com/embed/eeZ1Ufdra0E?autoplay=1';
+            trailerModal.classList.remove('hidden');
+        });
+
+        closeTrailerModal.addEventListener('click', () => {
+            trailerVideo.src = '';
+            trailerModal.classList.add('hidden');
+        });
+
+        trailerModal.addEventListener('click', (e) => {
+            if (e.target === trailerModal) {
+                trailerVideo.src = '';
+                trailerModal.classList.add('hidden');
+            }
+        });
+    </script>
+    <button id="scrollToTopBtn"
+        class="fixed bottom-5 right-5 bg-primary text-background p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 ease-in-out z-50 hover:bg-opacity-80">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+
+</html>

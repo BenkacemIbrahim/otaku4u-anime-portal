@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا | Otaku4U</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B6B',
+                        secondary: '#4ECDC4',
+                        background: '#1A1A2E',
+                        text: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1A1A2E;
+            color: #FFFFFF;
+            zoom: 1.2;
+        }
+
+        .custom-shape-divider-top-1635700088 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .custom-shape-divider-top-1635700088 svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+
+        .custom-shape-divider-top-1635700088 .shape-fill {
+            fill: #FF6B6B;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-text">
+    <div class="container mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold mb-8 text-center">اتصل بنا</h1>
+        <p class="text-xl mb-8 text-center">إذا كان لديك أي استفسارات أو ملاحظات، لا تتردد في التواصل معنا.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                <h2 class="text-3xl font-semibold mb-6">أرسل لنا رسالة</h2>
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium">الاسم</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primary transition duration-300">
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium">البريد الإلكتروني</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primary transition duration-300">
+                    </div>
+                    <div>
+                        <label for="subject" class="block mb-2 text-sm font-medium">الموضوع</label>
+                        <input type="text" id="subject" name="subject" required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primary transition duration-300">
+                    </div>
+                    <div>
+                        <label for="message" class="block mb-2 text-sm font-medium">الرسالة</label>
+                        <textarea id="message" name="message" rows="4" required
+                            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primary transition duration-300"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-primary text-background px-6 py-3 rounded-md hover:bg-opacity-80 transition-colors duration-300 font-semibold text-lg">إرسال
+                        الرسالة</button>
+                </form>
+            </div>
+
+            <!-- Contact Information and FAQ -->
+            <div class="space-y-8 ">
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <h2 class="text-3xl font-semibold mb-6">معلومات الاتصال</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                            <div class="bg-primary rounded-full p-3">
+                                <i class="fas fa-map-marker-alt text-background"></i>
+                            </div>
+                            <p>123 شارع الأنمي، مدينة الأوتاكو، 12345</p>
+                        </div>
+                        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                            <div class="bg-primary rounded-full p-3">
+                                <i class="fas fa-phone text-background"></i>
+                            </div>
+                            <p>+123 456 7890</p>
+                        </div>
+                        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                            <div class="bg-primary rounded-full p-3">
+                                <i class="fas fa-envelope text-background"></i>
+                            </div>
+                            <p>info@otaku4u.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <h2 class="text-3xl font-semibold mb-6">الأسئلة الشائعة</h2>
+                    <div class="space-y-4">
+                        <details class="bg-gray-700 rounded-md p-4">
+                            <summary class="text-lg font-medium">ما هو الوقت المطلوب للاستجابة لرسالتي؟</summary>
+                            <p class="text-sm">نحن نسعى للاستجابة لجميع الرسائل في غضون 24 ساعة.</p>
+                        </details>
+                        <details class="bg-gray-700 rounded-md p-4">
+                            <summary class="text-lg font-medium">كيف يمكنني أن أتأكد من أن رسالتي وصلت؟</summary>
+                            <p class="text-sm">سوف نرسل لك رسالة تأكيد فور وصول رسالتك إلينا.</p>
+                        </details>
+                        <details class="bg-gray-700 rounded-md p-4">
+                            <summary class="text-lg font-medium">ما هو نوع المعلومات التي يجب أن أرسلها في رسالتي؟
+                            </summary>
+                            <p class="text-sm">يرجى إرسال معلوماتك الشخصية والرسالة التي تريد إرسالها إلينا.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <h2 class="text-3xl font-semibold mb-6">تابعنا على</h2>
+                    <div class="flex justify-center space-x-4 rtl:space-x-reverse">
+                        <a href="#"
+                            class="bg-primary text-background p-3 rounded-full hover:bg-opacity-80 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="bg-primary text-background p-3 rounded-full hover:bg-opacity-80 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="bg-primary text-background p-3 rounded-full hover:bg-opacity-80 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="bg-primary text-background p-3 rounded-full hover:bg-opacity-80 transition-colors duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-5 right-5 bg-green-500 text-white px-6 py-3 rounded-md shadow-lg transform translate-y-full opacity-0 transition-all duration-300">
+        تم إرسال رسالتك بنجاح!
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Basic form validation
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !email || !subject || !message) {
+                showToast('الرجاء ملء جميع الحقول المطلوبة', 'bg-red -500');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast('الرجاء إدخال عنوان بريد إلكتروني صحيح', 'bg-red-500');
+                return;
+            }
+
+            // If validation passes, you would typically send this data to a server
+            // For this example, we'll just log it to the console and show a success toast
+            console.log('Form submitted:', { name, email, subject, message });
+            showToast('تم إرسال رسالتك بنجاح!', 'bg-green-500');
+
+            // Clear the form
+            this.reset();
+        });
+
+        function showToast(message, bgColor) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `fixed bottom-5 right-5 ${bgColor} text-white px-6 py-3 rounded-md shadow-lg transform translate-y-0 opacity-100 transition-all duration-300`;
+
+            setTimeout(() => {
+                toast.className = `fixed bottom-5 right-5 ${bgColor} text-white px-6 py-3 rounded-md shadow-lg transform translate-y-full opacity-0 transition-all duration-300`;
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
