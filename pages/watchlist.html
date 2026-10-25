@@ -444,7 +444,7 @@
             commentsList.innerHTML = comments.map(comment => `
         <div class="bg-gray-700 rounded-lg p-4 mb-4">
             <div class="flex items-center mb-2">
-                <img src="images/anime-moon-landscape.jpg" alt="${comment.userName}" class="w-10 h-10 rounded-full mr-3">
+                <img src="../assets/images/anime-moon-landscape.jpg" alt="${comment.userName}" class="w-10 h-10 rounded-full mr-3">
                 <div>
                     <h4 class="font-bold">${comment.userName}</h4>
                     <span class="text-xs text-gray-400">${new Date(comment.id).toLocaleString('ar-EG')}</span>
@@ -478,7 +478,7 @@
                     ${comment.replies.map(reply => `
                         <div class="bg-gray-600 rounded-lg p-3 mb-2">
                             <div class="flex items-center mb-2">
-                                <img src="images/anime-moon-landscape.jpg" alt="${reply.userName}" class="w-8 h-8 rounded-full mr-2">
+                                <img src="../assets/images/anime-moon-landscape.jpg" alt="${reply.userName}" class="w-8 h-8 rounded-full mr-2">
                                 <div>
                                     <h4 class="font-bold text-sm">${reply.userName}</h4>
                                     <span class="text-xs text-gray-400">${new Date(reply.id).toLocaleString('ar-EG')}</span>
@@ -557,12 +557,12 @@
         // Recommended Anime Functionality
         const recommendedAnimeList = document.getElementById('recommendedAnimeList');
         const recommendedAnimes = [
-            { title: "هجوم العمالقة", image: "images/anime-moon-landscape.jpg", rating: 9.0, description: "البشرية تناضل للبقاء ضد العمالقة آكلي لحوم البشر." },
-            { title: "ون بيس", image: "images/anime-moon-landscape.jpg", rating: 8.9, description: "مغامرات لوفي وطاقمه في البحث عن الكنز الأسطوري." },
-            { title: "ناروتو", image: "images/anime-moon-landscape.jpg", rating: 8.3, description: "رحلة ناروتو ليصبح أقوى نينجا وزعيم قريته." },
-            { title: "ديث نوت", image: "images/anime-moon-landscape.jpg", rating: 9.0, description: "صراع الذكاء بين طالب يمتلك دفتر قاتل ومحقق عبقري." },
-            { title: "فول ميتال ألكيميست", image: "images/anime-moon-landscape.jpg", rating: 9.1, description: "الأخوان إلريك يبحثان عن حجر الفلاسفة لاستعادة أجسادهما." },
-            { title: "دراغون بول", image: "images/anime-moon-landscape.jpg", rating: 8.7, description: "مغامرات سون غوكو وأصدقائه في عالم مليء بالقتال والخيال." }
+            { title: "هجوم العمالقة", image: "../assets/images/anime-moon-landscape.jpg", rating: 9.0, description: "البشرية تناضل للبقاء ضد العمالقة آكلي لحوم البشر." },
+            { title: "ون بيس", image: "../assets/images/anime-moon-landscape.jpg", rating: 8.9, description: "مغامرات لوفي وطاقمه في البحث عن الكنز الأسطوري." },
+            { title: "ناروتو", image: "../assets/images/anime-moon-landscape.jpg", rating: 8.3, description: "رحلة ناروتو ليصبح أقوى نينجا وزعيم قريته." },
+            { title: "ديث نوت", image: "../assets/images/anime-moon-landscape.jpg", rating: 9.0, description: "صراع الذكاء بين طالب يمتلك دفتر قاتل ومحقق عبقري." },
+            { title: "فول ميتال ألكيميست", image: "../assets/images/anime-moon-landscape.jpg", rating: 9.1, description: "الأخوان إلريك يبحثان عن حجر الفلاسفة لاستعادة أجسادهما." },
+            { title: "دراغون بول", image: "../assets/images/anime-moon-landscape.jpg", rating: 8.7, description: "مغامرات سون غوكو وأصدقائه في عالم مليء بالقتال والخيال." }
         ];
 
         function renderRecommendedAnime() {
