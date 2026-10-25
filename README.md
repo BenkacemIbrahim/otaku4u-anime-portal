@@ -44,17 +44,11 @@ route, and nothing is inlined in the HTML.
 | Home | Anime list | Anime details |
 | :---: | :---: | :---: |
 | [![Home page](screenshots/home.jpg)](screenshots/home.jpg) | [![Anime list page](screenshots/anime-list.jpg)](screenshots/anime-list.jpg) | [![Anime details page](screenshots/anime-details.jpg)](screenshots/anime-details.jpg) |
-
-| Movies | Upcoming releases | Broadcast schedule |
-| :---: | :---: | :---: |
+| **Movies** | **Upcoming releases** | **Broadcast schedule** |
 | [![Movies page](screenshots/movies.jpg)](screenshots/movies.jpg) | [![Upcoming releases page](screenshots/upcoming.jpg)](screenshots/upcoming.jpg) | [![Schedule page](screenshots/schedule.jpg)](screenshots/schedule.jpg) |
-
-| News | Watchlist | Premium |
-| :---: | :---: | :---: |
+| **News** | **Watchlist** | **Premium** |
 | [![News page](screenshots/news.jpg)](screenshots/news.jpg) | [![Watchlist page](screenshots/watchlist.jpg)](screenshots/watchlist.jpg) | [![Premium page](screenshots/premium.jpg)](screenshots/premium.jpg) |
-
-| Welcome | | |
-| :---: | :---: | :---: |
+| **Welcome** | | |
 | [![Welcome page](screenshots/welcome.jpg)](screenshots/welcome.jpg) | | |
 
 ---
