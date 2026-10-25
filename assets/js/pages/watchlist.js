@@ -1,0 +1,334 @@
+/* ==========================================================================
+   Page behaviour: pages/watchlist.html
+   ========================================================================== */
+
+    // Video Player Controls
+    const video = document.getElementById('animeVideo');
+    const videoControls = document.getElementById('videoControls');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progressbar = document.getElementById('progressBar');
+    const muteBtn = document.getElementById('muteBtn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+    video.addEventListener('click', togglePlayPause);
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    muteBtn.addEventListener('click', toggleMute);
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    video.addEventListener('timeupdate', updateProgressBar);
+    progressbar.addEventListener('input', seekVideo);
+
+    video.addEventListener('mouseover', () => {
+        videoControls.style.opacity = '1';
+    });
+
+    video.addEventListener('mouseout', () => {
+        videoControls.style.opacity = '0';
+    });
+
+    function togglePlayPause() {
+        if (video.paused) {
+            video.play();
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            video.pause();
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    }
+
+    function toggleMute() {
+        video.muted = !video.muted;
+        muteBtn.innerHTML = video.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+    }
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    }
+
+    function updateProgressBar() {
+        const percentage = (video.currentTime / video.duration) * 100;
+        progressbar.value = percentage;
+    }
+
+    function seekVideo() {
+        const time = (progressbar.value / 100) * video.duration;
+        video.currentTime = time;
+    }
+    // Server switching functionality
+    function changeServer(serverId) {
+        // Here you would typically change the video source based on the selected server
+        console.log(`Switching to ${serverId}`);
+
+        // Example of changing video source (you would replace these with actual server URLs)
+        const serverUrls = {
+            server1: "https://server1.example.com/video.mp4",
+            server2: "https://server2.example.com/video.mp4",
+            server3: "https://server3.example.com/video.mp4",
+            server4: "https://server4.example.com/video.mp4"
+        };
+
+        // Update video source
+        const video = document.getElementById('animeVideo');
+        video.src = serverUrls[serverId];
+        video.load();
+
+        // Highlight active server
+        document.querySelectorAll('[onclick^="changeServer"]').forEach(button => {
+            button.classList.remove('bg-primary');
+            button.classList.add('bg-gray-700');
+        });
+        event.currentTarget.classList.remove('bg-gray-700');
+        event.currentTarget.classList.add('bg-primary');
+    }
+
+    // Episodes Functionality
+    const episodesList = [
+        { number: 1, title: "البداية", duration: "24:00" },
+        { number: 2, title: "المواجهة", duration: "23:30" },
+        { number: 3, title: "الصداقة", duration: "24:15" },
+        { number: 4, title: "التحدي", duration: "23:45" },
+        { number: 5, title: "الحقيقة", duration: "24:30" },
+        { number: 6, title: "المعركة", duration: "25:00" },
+        { number: 7, title: "الانتصار", duration: "24:10" },
+        { number: 8, title: "الأسرار", duration: "23:55" },
+        { number: 9, title: "التحول", duration: "24:20" },
+        { number: 10, title: "النهاية", duration: "26:00" },
+    ];
+
+    const episodesSidebar = document.querySelector('.episodes-list');
+    const episodeSearch = document.getElementById('episodeSearch');
+
+    function renderEpisodes(episodes) {
+        episodesSidebar.innerHTML = '';
+
+        episodes.forEach(episode => {
+            const episodeElement = document.createElement('div');
+            episodeElement.className = 'bg-gray-700 text-white p-3 rounded-lg hover:bg-gray-600 transition-colors duration-300  cursor-pointer';
+            episodeElement.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="font-bold">الحلقة ${episode.number}</span>
+                    <span class="text-sm text-gray-400">${episode.duration}</span>
+                </div>
+                <p class="text-sm mt-1">${episode.title}</p>
+            `;
+            episodeElement.addEventListener('click', () => selectEpisode(episode));
+            episodesSidebar.appendChild(episodeElement);
+        });
+    }
+
+    function selectEpisode(episode) {
+        console.log(`Selected episode ${episode.number}: ${episode.title}`);
+        // Here you would typically load the selected episode
+    }
+
+    episodeSearch.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredEpisodes = episodesList.filter(episode =>
+            episode.title.toLowerCase().includes(searchTerm) ||
+            episode.number.toString().includes(searchTerm)
+        );
+        renderEpisodes(filteredEpisodes);
+    });
+
+    // Comments Functionality
+    const commentForm = document.getElementById('commentForm');
+    const commentsList = document.getElementById('commentsList');
+    let comments = [];
+
+    // Predefined list of usernames
+    const usernames = [
+        "أنمي_عاشق", "ناروتو_فان", "ساسكي_كون", "لوفي_سان", "غوكو_سوبر",
+        "ميكاسا_أكرمان", "إيرين_ييغر", "ليفاي_هيتشو", "إدوارد_إلريك", "ريم_تشان",
+        "ليلوش_لامبيروج", "ساتاما_سينسي", "كيلوا_زولديك", "إيتاتشي_أوتشيها", "ماكي_زينين"
+    ];
+
+    commentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const commentText = document.getElementById('commentText').value;
+        if (commentText.trim() !== '') {
+            addComment(commentText);
+            document.getElementById('commentText').value = '';
+        }
+    });
+
+    function addComment(text) {
+        const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
+        const newComment = {
+            id: Date.now(),
+            text: text,
+            userName: randomUsername,
+            likes: 0,
+            replies: []
+        };
+        comments.unshift(newComment);
+        renderComments();
+    }
+
+    // Modify the renderComments function
+    function renderComments() {
+        commentsList.innerHTML = comments.map(comment => `
+    <div class="bg-gray-700 rounded-lg p-4 mb-4">
+        <div class="flex items-center mb-2">
+            <img src="../assets/images/anime-moon-landscape.jpg" alt="${comment.userName}" class="w-10 h-10 rounded-full mr-3">
+            <div>
+                <h4 class="font-bold">${comment.userName}</h4>
+                <span class="text-xs text-gray-400">${new Date(comment.id).toLocaleString('ar-EG')}</span>
+            </div>
+        </div>
+        <p class="mb-2">${comment.text}</p>
+        <div class="flex justify-end items-center text-sm text-gray-400 gap-4">
+            <button class="comment-likes" onclick="likeComment(${comment.id})">
+                <i class="fas fa-heart ml-1"></i>${comment.likes} إعجاب
+            </button>
+            <button class="hover:text-primary transition-colors" onclick="showReplyForm(${comment.id})">
+                <i class="fas fa-reply ml-1"></i>رد
+            </button>
+        </div>
+
+        <!-- Reply Form -->
+    <div id="replyForm-${comment.id}" class="hidden mt-4">
+        <textarea class="w-full bg-gray-600 rounded-lg p-2 text-white resize-none focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+            rows="2" placeholder="اكتب ردك هنا..." id="replyText-${comment.id}"></textarea>
+        <div class="flex justify-start mt-2"> <!-- Changed from justify-end to justify-start -->
+            <button onclick="addReply(${comment.id})" class="bg-primary text-white px-4 py-1 rounded-full text-sm hover:opacity-90 transition-opacity">
+                إرسال الرد
+            </button>
+        </div>
+    </div>
+
+        <!-- Replies Section -->
+        ${comment.replies.length > 0 ? `
+            <div class="mt-4 mr-8 border-r-2 border-gray-600 pr-4">
+                ${comment.replies.map(reply => `
+                    <div class="bg-gray-600 rounded-lg p-3 mb-2">
+                        <div class="flex items-center mb-2">
+                            <img src="../assets/images/anime-moon-landscape.jpg" alt="${reply.userName}" class="w-8 h-8 rounded-full mr-2">
+                            <div>
+                                <h4 class="font-bold text-sm">${reply.userName}</h4>
+                                <span class="text-xs text-gray-400">${new Date(reply.id).toLocaleString('ar-EG')}</span>
+                            </div>
+                        </div>
+                        <p class="text-sm">${reply.text}</p>
+                        <div class="flex justify-end items-center text-xs text-gray-400 mt-2">
+                            <button class="comment-likes" onclick="likeReply(${comment.id}, ${reply.id})">
+                                <i class="fas fa-heart ml-1"></i>${reply.likes} إعجاب
+                            </button>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        ` : ''}
+    </div>
+`).join('');
+    }
+
+    // Add these new functions
+    function showReplyForm(commentId) {
+        const replyForm = document.getElementById(`replyForm-${commentId}`);
+        replyForm.classList.toggle('hidden');
+    }
+
+    function addReply(commentId) {
+        const replyText = document.getElementById(`replyText-${commentId}`).value;
+        if (replyText.trim() !== '') {
+            const comment = comments.find(c => c.id === commentId);
+            if (comment) {
+                const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
+                const reply = {
+                    id: Date.now(),
+                    text: replyText,
+                    userName: randomUsername,
+                    likes: 0
+                };
+                comment.replies.push(reply);
+                renderComments();
+            }
+        }
+    }
+
+    function likeReply(commentId, replyId) {
+        const comment = comments.find(c => c.id === commentId);
+        if (comment) {
+            const reply = comment.replies.find(r => r.id === replyId);
+            if (reply) {
+                reply.likes++;
+                renderComments();
+            }
+        }
+    }
+
+    // Modify the addComment function to include an empty replies array
+    function addComment(text) {
+        const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
+        const newComment = {
+            id: Date.now(),
+            text: text,
+            userName: randomUsername,
+            likes: 0,
+            replies: [] // Add this line
+        };
+        comments.unshift(newComment);
+        renderComments();
+    }
+    function likeComment(id) {
+        const comment = comments.find(c => c.id === id);
+        if (comment) {
+            comment.likes++;
+            renderComments();
+        }
+    }
+
+    // Recommended Anime Functionality
+    const recommendedAnimeList = document.getElementById('recommendedAnimeList');
+    const recommendedAnimes = [
+        { title: "هجوم العمالقة", image: "../assets/images/anime-moon-landscape.jpg", rating: 9.0, description: "البشرية تناضل للبقاء ضد العمالقة آكلي لحوم البشر." },
+        { title: "ون بيس", image: "../assets/images/anime-moon-landscape.jpg", rating: 8.9, description: "مغامرات لوفي وطاقمه في البحث عن الكنز الأسطوري." },
+        { title: "ناروتو", image: "../assets/images/anime-moon-landscape.jpg", rating: 8.3, description: "رحلة ناروتو ليصبح أقوى نينجا وزعيم قريته." },
+        { title: "ديث نوت", image: "../assets/images/anime-moon-landscape.jpg", rating: 9.0, description: "صراع الذكاء بين طالب يمتلك دفتر قاتل ومحقق عبقري." },
+        { title: "فول ميتال ألكيميست", image: "../assets/images/anime-moon-landscape.jpg", rating: 9.1, description: "الأخوان إلريك يبحثان عن حجر الفلاسفة لاستعادة أجسادهما." },
+        { title: "دراغون بول", image: "../assets/images/anime-moon-landscape.jpg", rating: 8.7, description: "مغامرات سون غوكو وأصدقائه في عالم مليء بالقتال والخيال." }
+    ];
+
+    function renderRecommendedAnime() {
+        recommendedAnimeList.innerHTML = recommendedAnimes.map(anime => `
+    <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
+        <img src="${anime.image}" alt="${anime.title}" class="w-full object-cover h-[400px]">
+        <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
+            <span class="bg-primary text-background px-2 py-1 rounded-full text-sm font-semibold">
+                ${anime.rating.toFixed(1)} <i class="fas fa-star"></i>
+            </span>
+        </div>
+        <div class="anime-info absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <h4 class="text-white text-lg font-semibold text-center">${anime.title}</h4>
+            <div class="flex items-center justify-center gap-2 mt-1">
+                <span class="bg-secondary text-background px-2 py-1 rounded-full text-xs font-semibold">TV</span>
+            </div>
+            <p class="text-gray-300 text-sm mt-2">وصف قصير للأنمي...</p>
+        </div>
+    </div>
+`).join('');
+    }
+
+    // Initial renders
+    renderEpisodes(episodesList);
+    renderComments();
+    renderRecommendedAnime();
