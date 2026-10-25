@@ -1,0 +1,23 @@
+# Let Git detect text files and handle line endings automatically
+* text=auto
+
+# Binary assets - never diff or convert these
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.wav   binary
+*.mp3   binary
+*.mp4   binary
+*.webm  binary
+*.pdf   binary
+*.zip   binary
+
+# Keep vector sources readable in diffs
+*.svg   text
+
+# Dependency manifests are generated - collapse them in diffs
+package-lock.json linguist-generated=true
