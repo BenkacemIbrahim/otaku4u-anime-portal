@@ -6,306 +6,225 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Otaku4U - موقعك الأول لمشاهدة الأنمي</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#FF6B6B',
-                        secondary: '#4ECDC4',
-                        background: '#1A1A2E',
-                        text: '#FFFFFF',
-                    },
-                    fontFamily: {
-                        sans: ['Cairo', 'sans-serif'],
-                    },
-                },
-            },
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #1A1A2E;
-            color: #FFFFFF;
-        }
-
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .anime-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .anime-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .scrollable-menu {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .scrollable-menu button {
-            background-color: rgba(255, 107, 107, 0.8);
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .scrollable-menu button:hover {
-            background-color: rgba(255, 107, 107, 1);
-        }
-
-        .scrollable-menu .menu-items {
-            overflow-x: auto;
-            white-space: nowrap;
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .scrollable-menu a {
-            display: inline-block;
-            background-color: #4ECDC4;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin: 0 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .scrollable-menu a:hover {
-            background-color: #FF6B6B;
-            transform: scale(1.05);
-        }
-
-        @keyframes slide-in {
-            0% {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .slide-in {
-            animation: slide-in 1s ease forwards;
-        }
-
-        .swiper-slide-active .slide-in {
-            animation-delay: 0.5s;
-        }
-
-        #scrollToTopBtn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        #scrollToTopBtn:hover {
-            background-color: #FF8C8C;
-            transform: scale(1.1);
-        }
-
-        .anime-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .anime-card:hover::before {
-            opacity: 1;
-        }
-
-        .anime-card .anime-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .anime-card:hover .anime-info {
-            transform: translateY(0);
-        }
-
-        .section-title {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(to right, #FF6B6B, #4ECDC4);
-        }
-
-        .news-card {
-            transition: transform 0.3s ease;
-        }
-
-        .news-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .filter-dropdown {
-            position: relative;
-        }
-
-        .filter-dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #2A2A3E;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            border-radius: 5px;
-        }
-
-        .filter-dropdown:hover .filter-dropdown-content {
-            display: block;
-        }
-
-        .filter-dropdown-content a {
-            color: #FFFFFF;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .filter-dropdown-content a:hover {
-            background-color: #3A3A4E;
-        }
-
-        .swiper-slide-active .slide-content {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .swiper-slide-inactive .slide-content {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .swiper-slide-active .slide-image {
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .swiper-slide-inactive .slide-image {
-            opacity: 0;
-            transform: scale(1.1);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        @keyframes wave {
-            0% {
-                background-position-x: 0;
-            }
-
-            100% {
-                background-position-x: 1440px;
-            }
-        }
-
-        .animate-wave {
-            animation: wave 20s linear infinite;
-        }
-
-        .zoomed-content {
-            zoom: 1.2;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .category-card {
-            opacity: 0;
-        }
-
-        #categoriesContainer .category-card {
-            opacity: 1;
-        }
-
-        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-            /* Dark background for the track */
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            /* Primary color for the thumb */
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2563eb;
-            /* Darker shade on hover */
-        }
-
-        /* Firefox */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #3b82f6 #1a1a1a;
-            /* thumb and track colors */
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/pages/index.css">
 </head>
 
 <body class="bg-background text-text">
+<header class="py-4 px-6 shadow-lg">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <h1 class="text-4xl font-bold logo-text">Otaku4U</h1>
+                </div>
+
+                <nav class="hidden lg:flex space-x-6 space-x-reverse">
+                    <a href="index.html"
+                        class="nav-item text-lg hover:text-primary transition-colors duration-300">الرئيسية</a>
+                    <div class="group relative">
+                        <span
+                            class="nav-item text-lg hover:text-primary transition-colors duration-300 cursor-pointer flex items-center">
+                            قائمة الأنمي
+                            <i
+                                class="fas fa-chevron-down mr-1 text-sm transition-transform duration-300 group-hover:rotate-180"></i>
+                        </span>
+                        <div class="dropdown-menu absolute right-0 mt-2 w-48 bg-background rounded-md shadow-lg z-10">
+                            <a href="pages/anime-list.html"
+                                class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">أنميات
+                                تعرض حاليا
+                            </a>
+                            <a href="pages/upcoming.html"
+                                class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">الإصدارات
+                                القادمة
+                            </a>
+                        </div>
+                    </div>
+                    <a href="pages/movies.html"
+                        class="nav-item text-lg hover:text-primary transition-colors duration-300">قائمة
+                        الافلام</a>
+                    <a href="pages/schedule.html"
+                        class="nav-item text-lg hover:text-primary transition-colors duration-300">مواعيد
+                        العرض</a>
+                    <a href="pages/news.html"
+                        class="nav-item text-lg hover:text-primary transition-colors duration-300">اخر
+                        الاخبار</a>
+                </nav>
+
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <button id="searchBtn" class="text-2xl hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button id="darkModeToggle" class="text-2xl hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <!-- Replace the existing user button with this -->
+                    <div class="relative group" id="userSection">
+                        <!-- Default user button (shown when logged out) -->
+                        <button id="userBtn" class="text-2xl hover:text-primary transition-colors duration-300">
+                            <i class="fas fa-user"></i>
+                        </button>
+
+                        <!-- Logged in user menu (hidden by default) -->
+                        <div id="loggedInMenu" class="hidden">
+                            <div class="flex items-center space-x-2 space-x-reverse cursor-pointer">
+                                <i class="fas fa-user-circle text-2xl text-primary"></i>
+                                <span id="userNameDisplay" class="text-lg"></span>
+                                <i
+                                    class="fas fa-chevron-down text-sm transition-transform duration-300 group-hover:rotate-180"></i>
+                            </div>
+                            <div
+                                class="dropdown-menu absolute left-0 mt-2 w-48 bg-background rounded-md shadow-lg z-10 hidden group-hover:block">
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">
+                                    <i class="fas fa-user-cog ml-2"></i>الملف الشخصي
+                                </a>
+                                <a href="pages/watchlist.html"
+                                    class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">
+                                    <i class="fas fa-list ml-2"></i>قائمتي
+                                </a>
+                                <a href="pages/premium.html"
+                                    class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">
+                                    <i class="fas fa-cog ml-2"></i>الإعدادات
+                                </a>
+                                <hr class="border-gray-600">
+                                <a href="#" id="logoutBtn"
+                                    class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">
+                                    <i class="fas fa-sign-out-alt ml-2"></i>تسجيل خروج
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="mobileMenuBtn"
+                        class="lg:hidden text-2xl hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+        class="fixed inset-0 bg-background bg-opacity-95 z-50 hidden transition-opacity duration-300 opacity-0">
+        <div class="flex justify-end p-4">
+            <button id="closeMobileMenu" class="text-3xl hover:text-primary transition-colors duration-300">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col items-center space-y-6 mt-16">
+            <a href="index.html" class="text-2xl hover:text-primary transition-colors duration-300">الرئيسية</a>
+            <a href="pages/anime-list.html" class="text-2xl hover:text-primary transition-colors duration-300">قائمة
+                الأنمي</a>
+            <a href="pages/movies.html" class="text-2xl hover:text-primary transition-colors duration-300">قائمة
+                الافلام</a>
+            <a href="pages/schedule.html" class="text-2xl hover:text-primary transition-colors duration-300">مواعيد
+                الحلقات</a>
+            <a href="pages/news.html" class="text-2xl hover:text-primary transition-colors duration-300">اخر
+                الاخبار</a>
+        </nav>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal"
+        class="modal fixed inset-0 bg-background bg-opacity-95 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-text p-8 rounded-lg shadow-2xl w-full max-w-2xl">
+            <h2 class="text-3xl font-bold text-background mb-6 text-center">البحث</h2>
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="ابحث عن أنمي، فيلم، أو شخصية..."
+                    class="w-full p-4 pl-16 rounded-full border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg">
+                <button id="searchButton"
+                    class="absolute left-0 top-0 h-full bg-primary text-background px-5 rounded-l-full hover:bg-opacity-80 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    <i class="fas fa-search text-lg"></i>
+                </button>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button id="closeSearchModal"
+                    class="bg-primary text-background px-6 py-2 rounded-full hover:bg-opacity-80 transition-colors duration-300">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="userModal"
+        class="modal fixed inset-0 bg-background bg-opacity-95 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-text p-8 rounded-lg shadow-2xl w-full max-w-md">
+            <h2 class="text-3xl font-bold text-background mb-6 text-center">تسجيل الدخول</h2>
+            <form id="loginForm">
+                <input type="text" placeholder="اسم المستخدم"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-4">
+                <input type="password" placeholder="كلمة المرور"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-6">
+                <button type="submit"
+                    class="w-full bg-primary text-background py-3 rounded-lg hover:bg-opacity-80 transition-colors duration-300 text-lg font-bold">دخول</button>
+                <div class="mt-4 text-center">
+                    <a href="#" id="showPasswordRecoveryModal" class="text-primary hover:underline">نسيت كلمة
+                        المرور؟</a>
+                </div>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="showSignUpModal" class="text-primary hover:underline">إنشاء حساب جديد</a>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button id="closeUserModal"
+                    class="bg-gray-300 text-background px-6 py-2 rounded-full hover:bg-opacity-80 transition-colors duration-300">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal"
+        class="modal fixed inset-0 bg-background bg-opacity-95 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-text p-8 rounded-lg shadow-2xl w-full max-w-md">
+            <h2 class="text-3xl font-bold text-background mb-6 text-center">إنشاء حساب جديد</h2>
+            <form id="signUpForm">
+                <input type="text" placeholder="اسم المستخدم"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-4">
+                <input type="email" placeholder="البريد الإلكتروني"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-4">
+                <input type="password" placeholder="كلمة المرور"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-4">
+                <input type="password" placeholder="تأكيد كلمة المرور"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-6">
+                <button type="submit"
+                    class="w-full bg-primary text-background py-3 rounded-lg hover:bg-opacity-80 transition-colors  duration-300 text-lg font-bold">إنشاء
+                    الحساب</button>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="showLoginModal" class="text-primary hover:underline">لديك حساب بالفعل؟ سجل الدخول</a>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button id="closeSignUpModal"
+                    class="bg-gray-300 text-background px-6 py-2 rounded-full hover:bg-opacity-80 transition-colors duration-300">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Recovery Modal -->
+    <div id="passwordRecoveryModal"
+        class="modal fixed inset-0 bg-background bg-opacity-95 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-text p-8 rounded-lg shadow-2xl w-full max-w-md mx-4">
+            <h2 class="text-3xl font-bold text-background mb-6 text-center">استعادة كلمة المرور</h2>
+            <form id="passwordRecoveryForm">
+                <input type="email" placeholder="البريد الإلكتروني"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-6">
+                <button type="submit"
+                    class="w-full bg-primary text-background py-3 rounded-lg hover:bg-opacity-80 transition-colors duration-300 text-lg font-bold">إرسال
+                    رابط الاستعادة</button>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="backToLogin" class="text-primary hover:underline">العودة لتسجيل الدخول</a>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button id="closePasswordRecoveryModal"
+                    class="bg-gray-300 text-background px-6 py-2 rounded-full hover:bg-opacity-80 transition-colors duration-300">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section with Trending Anime Carousel -->
     <section class="relative h-screen overflow-hidden">
         <div class="swiper-container h-full">
@@ -1025,187 +944,115 @@
 
     <section class="py-12 bg-gray-900"></section>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.createElement('div');
-        mobileMenu.className = 'lg:hidden fixed inset-0 bg-background bg-opacity-95 z-50 flex items-center justify-center';
-        mobileMenu.innerHTML = `
-            <div class="text-center">
-                <button id="closeMobileMenu" class="absolute top-4 right-4 text-3xl">&times;</button>
-                <nav class="flex flex-col space-y-6">
-                    <a href="#" class="text-2xl hover:text-primary transition-colors duration-300">الرئيسية</a>
-                    <a href="#" class="text-2xl hover:text-primary transition-colors duration-300">قائمة الأنمي</a>
-                    <a href="#" class="text-2xl hover:text-primary transition-colors duration-300">قائمة الافلام</a>
-                    <a href="#" class="text-2xl hover:text-primary transition-colors duration-300">مواعيد الحلقات</a>
-                    <a href="#" class="text-2xl hover:text-primary transition-colors duration-300">اخر الاخبار</a>
-                </nav>
+<footer class="bg-background text-text py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-start">
+                <!-- Logo and Social Section -->
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h3 class="text-3xl font-bold mb-4 logo-text">Otaku4U</h3>
+                    <p class="mb-4 text-gray-400">موقعك الأول لمشاهدة وتحميل الأنمي المترجم</p>
+                    <div class="flex space-x-4 space-x-reverse">
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-facebook-f text-lg  -mt-0.5"></i>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <span class="[&>svg]:h-6 [&>svg]:w-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
+                                    <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                                    <path
+                                        d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                                </svg>
+                            </span>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-discord text-xl"></i>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-reddit text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links Section -->
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h4 class="text-xl font-semibold mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="pages/about.html"
+                                class="hover:text-primary transition-colors duration-300 footer-link">من نحن</a>
+                        </li>
+                        <li><a href="pages/contact.html"
+                                class="hover:text-primary transition-colors duration-300 footer-link">اتصل
+                                بنا</a>
+                        </li>
+                        <li><a href="pages/privacy.html"
+                                class="hover:text-primary transition-colors duration-300 footer-link">الأسئلة
+                                الشائعة</a></li>
+                        <li><a href="pages/contact.html"
+                                class="hover:text-primary transition-colors duration-300 footer-link">الدعم
+                                الفني</a></li>
+                    </ul>
+                </div>
+
+                <!-- Download App Section -->
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h4 class="text-xl font-semibold mb-4">حمّل التطبيق</h4>
+                    <p class="mb-4 text-gray-400">استمتع بتجربة أفضل مع تطبيقنا</p>
+                    <div class="flex flex-row space-x-3 space-x-reverse"> <!-- Changed from flex-col to flex-row -->
+                        <a href="#" class="transition-transform hover:scale-105">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                                alt="Get it on Google Play" class="h-10">
+                        </a>
+                        <a href="#" class="transition-transform hover:scale-105">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                                alt="Download on App Store" class="h-10">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Premium Section -->
+                <div class="w-full md:w-1/4">
+                    <h4 class="text-xl font-semibold mb-4">ترقية لـ Premium</h4>
+                    <p class="mb-4 text-gray-400">احصل على تجربة مشاهدة أنمي لا مثيل لها مع مميزات حصرية</p>
+                    <a href="pages/premium.html"
+                        class="group bg-primary text-background p-2 rounded-full  font-semibold inline-flex items-center gap-3 hover:bg-opacity-90 transform hover:scale-105 transition-all duration-300">
+                        اكتشف جميع المميزات
+                        <i class="fas fa-crown group-hover:animate-bounce"></i>
+                    </a>
+
+                </div>
             </div>
-        `;
-        mobileMenu.style.display = 'none';
-        document.body.appendChild(mobileMenu);
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.style.display = 'flex';
-            mobileMenu.classList.add('animate-fade-in');
-        });
+            <!-- Copyright Section -->
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400 mb-4 md:mb-0">© <span id="current-year"></span> Otaku4U. جميع الحقوق
+                    محفوظة.
+                </p>
+                <div class="flex space-x-4 space-x-reverse">
+                    <a href="pages/privacy.html"
+                        class="text-sm text-gray-400 hover:text-primary transition-colors duration-300 footer-link">سياسة
+                        الخصوصية</a>
+                    <a href="pages/privacy.html"
+                        class="text-sm text-gray-400 hover:text-primary transition-colors duration-300 footer-link">شروط
+                        الاستخدام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-        document.getElementById('closeMobileMenu').addEventListener('click', () => {
-            mobileMenu.classList.add('animate-fade-out');
-            setTimeout(() => {
-                mobileMenu.style.display = 'none';
-                mobileMenu.classList.remove('animate-fade-out');
-            }, 300);
-        });
-
-        // Smooth scroll for navigation items
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIn
-                toView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        const scrollableMenu = document.querySelector('.scrollable-menu');
-        const menuItems = document.querySelector('.menu-items');
-        const scrollLeftButton = document.getElementById('scrollLeft');
-        const scrollRightButton = document.getElementById('scrollRight');
-
-        let scrollPosition = 0;
-
-        scrollLeftButton.addEventListener('click', () => {
-            scrollPosition -= 200;
-            menuItems.scroll({
-                left: scrollPosition,
-                behavior: 'smooth'
-            });
-        });
-
-        scrollRightButton.addEventListener('click', () => {
-            scrollPosition += 200;
-            menuItems.scroll({
-                left: scrollPosition,
-                behavior: 'smooth'
-            });
-        });
-
-        // Intersection Observer for fade-in effect
-        const fadeInElements = document.querySelectorAll('.fade-in');
-        const fadeInObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fade-in');
-                    fadeInObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        fadeInElements.forEach(element => {
-            fadeInObserver.observe(element);
-        });
-    </script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var swiper = new Swiper('.swiper-container', {
-                direction: 'horizontal',
-                loop: true,
-                effect: 'fade',
-                speed: 1000,
-                autoplay: {
-                    delay: 5000,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                on: {
-                    init: function () {
-                        this.slides.forEach(slide => {
-                            slide.classList.add('swiper-slide-inactive');
-                        });
-                        this.slides[this.activeIndex].classList.remove('swiper-slide-inactive');
-                        this.slides[this.activeIndex].classList.add('swiper-slide-active');
-                    },
-                    slideChangeTransitionStart: function () {
-                        this.slides.forEach(slide => {
-                            slide.classList.add('swiper-slide-inactive');
-                            slide.classList.remove('swiper-slide-active');
-                        });
-                    },
-                    slideChangeTransitionEnd: function () {
-                        this.slides[this.activeIndex].classList.remove('swiper-slide-inactive');
-                        this.slides[this.activeIndex].classList.add('swiper-slide-active');
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-            const heroSection = document.querySelector('.swiper-container');
-
-            if (scrollToTopBtn && heroSection) {
-                window.addEventListener('scroll', function () {
-                    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-
-                    if (window.pageYOffset > heroBottom) {
-                        scrollToTopBtn.classList.add('opacity-100');
-                        scrollToTopBtn.classList.remove('opacity-0');
-                    } else {
-                        scrollToTopBtn.classList.add('opacity-0');
-                        scrollToTopBtn.classList.remove('opacity-100');
-                    }
-                });
-
-                scrollToTopBtn.addEventListener('click', function () {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            } else {
-                console.error('Scroll to top button or hero section not found');
-            }
-        });
-        function toggleCategories() {
-            const additionalCategories = document.getElementById('additionalCategories');
-            const viewAllBtn = document.getElementById('viewAllBtn');
-
-            if (additionalCategories.classList.contains('hidden')) {
-                // Show additional categories
-                additionalCategories.classList.remove('hidden');
-                viewAllBtn.textContent = 'عرض أقل';
-
-                // Smooth scroll to newly revealed categories
-                additionalCategories.scrollIntoView({ behavior: 'smooth' });
-
-                // Add animation to new categories
-                additionalCategories.querySelectorAll('.category-card').forEach((card, index) => {
-                    card.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
-                });
-            } else {
-                // Hide additional categories
-                additionalCategories.classList.add('hidden');
-                viewAllBtn.textContent = 'عرض جميع التصنيفات';
-
-                // Smooth scroll back to top of categories section
-                document.getElementById('categoriesContainer').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    </script>
     <button id="scrollToTopBtn"
         class="fixed bottom-5 right-5 bg-primary text-background p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 ease-in-out z-50 hover:bg-opacity-80">
         <i class="fas fa-arrow-up"></i>
     </button>
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/footer.js"></script>
+    <script src="assets/js/pages/index.js"></script>
 </body>
 
 </html>
