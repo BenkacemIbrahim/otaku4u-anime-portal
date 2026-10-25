@@ -6,137 +6,224 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جدول مواعيد الأنمي | Otaku4U</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/js/tailwind.config.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#FF6B6B',
-                        secondary: '#4ECDC4',
-                        background: '#1A1A2E',
-                        text: '#FFFFFF',
-                    },
-                    fontFamily: {
-                        sans: ['Cairo', 'sans-serif'],
-                    },
-                },
-            },
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #1A1A2E;
-            color: #FFFFFF;
-            zoom: 1.2;
-        }
-
-        .anime-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-        }
-
-        .anime-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .countdown {
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.2);
-        }
-
-        /* Add these to your existing styles */
-        .countdown {
-            transition: all 0.3s ease;
-        }
-
-        .countdown.bg-primary {
-            border-color: rgba(255, 107, 107, 0.5);
-        }
-
-        .countdown.bg-secondary {
-            border-color: rgba(78, 205, 196, 0.5);
-        }
-
-        .countdown-text {
-            font-feature-settings: "tnum";
-            font-variant-numeric: tabular-nums;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.7;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        .countdown[data-urgent="true"] {
-            animation: pulse 2s infinite;
-        }
-
-        /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-            /* Dark background for the track */
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            /* Primary color for the thumb */
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2563eb;
-            /* Darker shade on hover */
-        }
-
-        /* Firefox */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #3b82f6 #1a1a1a;
-            /* thumb and track colors */
-        }
-
-        #scrollToTopBtn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
-            opacity: 0;
-        }
-
-        #scrollToTopBtn.show {
-            opacity: 1;
-        }
-
-        #scrollToTopBtn:hover {
-            background-color: #FF8C8C;
-            transform: scale(1.1);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/pages/schedule.css">
 </head>
 
 <body class="bg-background text-text">
+<header class="py-4 px-6 shadow-lg">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <h1 class="text-4xl font-bold logo-text">Otaku4U</h1>
+                </div>
+
+                <nav class="hidden lg:flex space-x-6 space-x-reverse">
+                    <a href="../index.html"
+                        class="nav-item text-lg hover:text-primary transition-colors duration-300">الرئيسية</a>
+                    <div class="group relative">
+                        <span
+                            class="nav-item text-lg hover:text-primary transition-colors duration-300 cursor-pointer flex items-center">
+                            قائمة الأنمي
+                            <i
+                                class="fas fa-chevron-down mr-1 text-sm transition-transform duration-300 group-hover:rotate-180"></i>
+                        </span>
+                        <div class="dropdown-menu absolute right-0 mt-2 w-48 bg-background rounded-md shadow-lg z-10">
+                            <a href="anime-list.html"
+                                class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">أنميات
+                                تعرض حاليا
+                            </a>
+                            <a href="upcoming.html"
+                                class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">الإصدارات
+                                القادمة
+                            </a>
+                        </div>
+                    </div>
+                    <a href="movies.html"
+                        class="nav-item text-lg hover:text-primary transition-colors duration-300">قائمة
+                        الافلام</a>
+                    <a href="schedule.html"
+                        class="nav-item text-lg hover:text-primary transition-colors duration-300">مواعيد
+                        العرض</a>
+                    <a href="news.html"
+                        class="nav-item text-lg hover:text-primary transition-colors duration-300">اخر
+                        الاخبار</a>
+                </nav>
+
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <button id="searchBtn" class="text-2xl hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button id="darkModeToggle" class="text-2xl hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <!-- Replace the existing user button with this -->
+                    <div class="relative group" id="userSection">
+                        <!-- Default user button (shown when logged out) -->
+                        <button id="userBtn" class="text-2xl hover:text-primary transition-colors duration-300">
+                            <i class="fas fa-user"></i>
+                        </button>
+
+                        <!-- Logged in user menu (hidden by default) -->
+                        <div id="loggedInMenu" class="hidden">
+                            <div class="flex items-center space-x-2 space-x-reverse cursor-pointer">
+                                <i class="fas fa-user-circle text-2xl text-primary"></i>
+                                <span id="userNameDisplay" class="text-lg"></span>
+                                <i
+                                    class="fas fa-chevron-down text-sm transition-transform duration-300 group-hover:rotate-180"></i>
+                            </div>
+                            <div
+                                class="dropdown-menu absolute left-0 mt-2 w-48 bg-background rounded-md shadow-lg z-10 hidden group-hover:block">
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">
+                                    <i class="fas fa-user-cog ml-2"></i>الملف الشخصي
+                                </a>
+                                <a href="watchlist.html"
+                                    class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">
+                                    <i class="fas fa-list ml-2"></i>قائمتي
+                                </a>
+                                <a href="premium.html"
+                                    class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">
+                                    <i class="fas fa-cog ml-2"></i>الإعدادات
+                                </a>
+                                <hr class="border-gray-600">
+                                <a href="#" id="logoutBtn"
+                                    class="block px-4 py-2 text-sm hover:bg-primary hover:text-background transition-colors duration-300">
+                                    <i class="fas fa-sign-out-alt ml-2"></i>تسجيل خروج
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="mobileMenuBtn"
+                        class="lg:hidden text-2xl hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+        class="fixed inset-0 bg-background bg-opacity-95 z-50 hidden transition-opacity duration-300 opacity-0">
+        <div class="flex justify-end p-4">
+            <button id="closeMobileMenu" class="text-3xl hover:text-primary transition-colors duration-300">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col items-center space-y-6 mt-16">
+            <a href="../index.html" class="text-2xl hover:text-primary transition-colors duration-300">الرئيسية</a>
+            <a href="anime-list.html" class="text-2xl hover:text-primary transition-colors duration-300">قائمة
+                الأنمي</a>
+            <a href="movies.html" class="text-2xl hover:text-primary transition-colors duration-300">قائمة
+                الافلام</a>
+            <a href="schedule.html" class="text-2xl hover:text-primary transition-colors duration-300">مواعيد
+                الحلقات</a>
+            <a href="news.html" class="text-2xl hover:text-primary transition-colors duration-300">اخر
+                الاخبار</a>
+        </nav>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal"
+        class="modal fixed inset-0 bg-background bg-opacity-95 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-text p-8 rounded-lg shadow-2xl w-full max-w-2xl">
+            <h2 class="text-3xl font-bold text-background mb-6 text-center">البحث</h2>
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="ابحث عن أنمي، فيلم، أو شخصية..."
+                    class="w-full p-4 pl-16 rounded-full border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg">
+                <button id="searchButton"
+                    class="absolute left-0 top-0 h-full bg-primary text-background px-5 rounded-l-full hover:bg-opacity-80 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    <i class="fas fa-search text-lg"></i>
+                </button>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button id="closeSearchModal"
+                    class="bg-primary text-background px-6 py-2 rounded-full hover:bg-opacity-80 transition-colors duration-300">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="userModal"
+        class="modal fixed inset-0 bg-background bg-opacity-95 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-text p-8 rounded-lg shadow-2xl w-full max-w-md">
+            <h2 class="text-3xl font-bold text-background mb-6 text-center">تسجيل الدخول</h2>
+            <form id="loginForm">
+                <input type="text" placeholder="اسم المستخدم"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-4">
+                <input type="password" placeholder="كلمة المرور"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-6">
+                <button type="submit"
+                    class="w-full bg-primary text-background py-3 rounded-lg hover:bg-opacity-80 transition-colors duration-300 text-lg font-bold">دخول</button>
+                <div class="mt-4 text-center">
+                    <a href="#" id="showPasswordRecoveryModal" class="text-primary hover:underline">نسيت كلمة
+                        المرور؟</a>
+                </div>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="showSignUpModal" class="text-primary hover:underline">إنشاء حساب جديد</a>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button id="closeUserModal"
+                    class="bg-gray-300 text-background px-6 py-2 rounded-full hover:bg-opacity-80 transition-colors duration-300">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal"
+        class="modal fixed inset-0 bg-background bg-opacity-95 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-text p-8 rounded-lg shadow-2xl w-full max-w-md">
+            <h2 class="text-3xl font-bold text-background mb-6 text-center">إنشاء حساب جديد</h2>
+            <form id="signUpForm">
+                <input type="text" placeholder="اسم المستخدم"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-4">
+                <input type="email" placeholder="البريد الإلكتروني"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-4">
+                <input type="password" placeholder="كلمة المرور"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-4">
+                <input type="password" placeholder="تأكيد كلمة المرور"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-6">
+                <button type="submit"
+                    class="w-full bg-primary text-background py-3 rounded-lg hover:bg-opacity-80 transition-colors  duration-300 text-lg font-bold">إنشاء
+                    الحساب</button>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="showLoginModal" class="text-primary hover:underline">لديك حساب بالفعل؟ سجل الدخول</a>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button id="closeSignUpModal"
+                    class="bg-gray-300 text-background px-6 py-2 rounded-full hover:bg-opacity-80 transition-colors duration-300">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Recovery Modal -->
+    <div id="passwordRecoveryModal"
+        class="modal fixed inset-0 bg-background bg-opacity-95 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-text p-8 rounded-lg shadow-2xl w-full max-w-md mx-4">
+            <h2 class="text-3xl font-bold text-background mb-6 text-center">استعادة كلمة المرور</h2>
+            <form id="passwordRecoveryForm">
+                <input type="email" placeholder="البريد الإلكتروني"
+                    class="w-full p-4 rounded-lg border-2 border-primary bg-background text-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 text-lg mb-6">
+                <button type="submit"
+                    class="w-full bg-primary text-background py-3 rounded-lg hover:bg-opacity-80 transition-colors duration-300 text-lg font-bold">إرسال
+                    رابط الاستعادة</button>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="backToLogin" class="text-primary hover:underline">العودة لتسجيل الدخول</a>
+            </div>
+            <div class="flex justify-center mt-6">
+                <button id="closePasswordRecoveryModal"
+                    class="bg-gray-300 text-background px-6 py-2 rounded-full hover:bg-opacity-80 transition-colors duration-300">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container mx-auto px-4 py-8">
         <h2 class="text-3xl font-bold text-right mb-8">جدول مواعيد الأنمي</h2>
 
@@ -423,166 +510,113 @@
         </div>
     </div>
 
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to calculate and display countdown
-            function updateCountdown() {
-                // Get all countdown elements
-                const countdownElements = document.querySelectorAll('.countdown');
-
-                countdownElements.forEach(element => {
-                    // Get air date and time from data attributes
-                    const airDate = element.dataset.airDate;
-                    const airTime = element.dataset.airTime;
-
-                    // Combine date and time
-                    const airDateTime = new Date(`${airDate}T${airTime}`);
-                    const now = new Date();
-
-                    // Calculate difference
-                    const diff = airDateTime - now;
-
-                    // If the air date has passed
-                    if (diff < 0) {
-                        element.querySelector('.countdown-text').textContent = 'تم العرض';
-                        element.classList.add('bg-gray-700');
-                        return;
-                    }
-
-                    // Calculate days, hours, minutes, seconds
-                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                    // Format the countdown text in Arabic
-                    let countdownText = '';
-
-                    if (days > 0) {
-                        countdownText += `${days} يوم `;
-                    }
-                    if (hours > 0 || days > 0) {
-                        countdownText += `${hours} ساعة `;
-                    }
-                    if (minutes > 0 || hours > 0 || days > 0) {
-                        countdownText += `${minutes} دقيقة `;
-                    }
-                    countdownText += `${seconds} ثانية`;
-
-                    // Update the countdown text
-                    element.querySelector('.countdown-text').textContent = countdownText;
-
-                    // Add visual indicators based on time remaining
-                    if (diff < 24 * 60 * 60 * 1000) { // Less than 24 hours
-                        element.classList.add('bg-primary', 'bg-opacity-20');
-                    } else if (diff < 3 * 24 * 60 * 60 * 1000) { // Less than 3 days
-                        element.classList.add('bg-secondary', 'bg-opacity-20');
-                    }
-                });
-            }
-
-            // Update countdown immediately and then every second
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-
-            // Function to format numbers in Arabic
-            function toArabicNumerals(number) {
-                const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-                return number.toString().split('').map(digit => arabicNumbers[digit]).join('');
-            }
-
-            // Add this to handle multiple anime cards
-            function createAnimeCard(animeData) {
-                const template = `
-                <div class="anime-card relative overflow-hidden rounded-lg shadow-lg group">
-                    <div class="relative">
-                        <img src="${animeData.image}" alt="${animeData.title}" class="w-full object-cover h-[250px]">
-                            ${animeData.isNew ? '<div class="absolute top-0 right-0 bg-primary px-3 py-1 m-2 rounded-full text-sm">جديد</div>' : ''}
-                    </div>
-                    <div class="p-4">
-                        <h4 class="text-white text-lg font-semibold">${animeData.title}</h4>
-                        <div class="flex items-center gap-2 mt-2">
-                            <i class="fas fa-clock text-primary"></i>
-                            <p class="text-gray-300 text-sm">الحلقة: ${animeData.episode}</p>
-                        </div>
-                        <div class="flex items-center gap-2 mt-1">
-                            <i class="fas fa-calendar text-primary"></i>
-                            <p class="text-gray-300 text-sm">تاريخ العرض: ${animeData.airDate}</p>
-                        </div>
-                        <div class="flex items-center gap-2 mt-1">
-                            <i class="fas fa-hourglass-half text-primary"></i>
-                            <p class="text-gray-300 text-sm">الوقت: ${animeData.airTime}</p>
-                        </div>
-                        <div class="countdown mt-3 p-2 rounded-lg text-center"
-                            data-air-date="${animeData.airDate}"
-                            data-air-time="${animeData.airTime}">
-                            <p class="text-primary font-semibold">متبقي للعرض</p>
-                            <p class="text-lg countdown-text"></p>
-                        </div>
-                    </div>
-                </div>
-        `;
-                return template;
-            }
-
-            // Example usage:
-            const animeList = [
-                {
-                    title: "اسم الأنمي 1",
-                    episode: 1,
-                    airDate: "2025-11-10",
-                    airTime: "22:00",
-                    image: "../assets/images/anime-moon-landscape.jpg",
-                    isNew: true
-                },
-            ];
-
-            // Render anime cards
-            const container = document.querySelector('.grid');
-            animeList.forEach(anime => {
-                container.innerHTML += createAnimeCard(anime);
-            });
-        });
-        // Add this inside your existing DOMContentLoaded event listener
-        document.addEventListener('DOMContentLoaded', function () {
-
-            // Get the search section and scroll button
-            const searchSection = document.querySelector('.mb-8.bg-gray-900\\/50');
-            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-
-            // Function to handle scroll
-            function handleScroll() {
-                // Get the bottom position of the search section
-                const searchSectionBottom = searchSection.offsetTop + searchSection.offsetHeight;
-
-                // Show button when user scrolls past the search section
-                if (window.pageYOffset > searchSectionBottom) {
-                    scrollToTopBtn.style.opacity = '1';
-                    scrollToTopBtn.style.pointerEvents = 'auto';
-                } else {
-                    scrollToTopBtn.style.opacity = '0';
-                    scrollToTopBtn.style.pointerEvents = 'none';
-                }
-            }
-
-            // Add scroll event listener
-            window.addEventListener('scroll', handleScroll);
-
-            // Add click event to scroll to top
-            scrollToTopBtn.addEventListener('click', function () {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-    </script>
     <button id="scrollToTopBtn"
         class="fixed bottom-5 right-5 bg-primary text-background p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 ease-in-out z-50 hover:bg-opacity-80">
         <i class="fas fa-arrow-up"></i>
     </button>
+<footer class="bg-background text-text py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-start">
+                <!-- Logo and Social Section -->
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h3 class="text-3xl font-bold mb-4 logo-text">Otaku4U</h3>
+                    <p class="mb-4 text-gray-400">موقعك الأول لمشاهدة وتحميل الأنمي المترجم</p>
+                    <div class="flex space-x-4 space-x-reverse">
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-facebook-f text-lg  -mt-0.5"></i>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <span class="[&>svg]:h-6 [&>svg]:w-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
+                                    <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                                    <path
+                                        d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                                </svg>
+                            </span>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-discord text-xl"></i>
+                        </a>
+                        <a href="#" class="text-text hover:text-primary transition-colors duration-300 social-icon">
+                            <i class="fab fa-reddit text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links Section -->
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h4 class="text-xl font-semibold mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="about.html"
+                                class="hover:text-primary transition-colors duration-300 footer-link">من نحن</a>
+                        </li>
+                        <li><a href="contact.html"
+                                class="hover:text-primary transition-colors duration-300 footer-link">اتصل
+                                بنا</a>
+                        </li>
+                        <li><a href="privacy.html"
+                                class="hover:text-primary transition-colors duration-300 footer-link">الأسئلة
+                                الشائعة</a></li>
+                        <li><a href="contact.html"
+                                class="hover:text-primary transition-colors duration-300 footer-link">الدعم
+                                الفني</a></li>
+                    </ul>
+                </div>
+
+                <!-- Download App Section -->
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h4 class="text-xl font-semibold mb-4">حمّل التطبيق</h4>
+                    <p class="mb-4 text-gray-400">استمتع بتجربة أفضل مع تطبيقنا</p>
+                    <div class="flex flex-row space-x-3 space-x-reverse"> <!-- Changed from flex-col to flex-row -->
+                        <a href="#" class="transition-transform hover:scale-105">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                                alt="Get it on Google Play" class="h-10">
+                        </a>
+                        <a href="#" class="transition-transform hover:scale-105">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                                alt="Download on App Store" class="h-10">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Premium Section -->
+                <div class="w-full md:w-1/4">
+                    <h4 class="text-xl font-semibold mb-4">ترقية لـ Premium</h4>
+                    <p class="mb-4 text-gray-400">احصل على تجربة مشاهدة أنمي لا مثيل لها مع مميزات حصرية</p>
+                    <a href="premium.html"
+                        class="group bg-primary text-background p-2 rounded-full  font-semibold inline-flex items-center gap-3 hover:bg-opacity-90 transform hover:scale-105 transition-all duration-300">
+                        اكتشف جميع المميزات
+                        <i class="fas fa-crown group-hover:animate-bounce"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Copyright Section -->
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400 mb-4 md:mb-0">© <span id="current-year"></span> Otaku4U. جميع الحقوق
+                    محفوظة.
+                </p>
+                <div class="flex space-x-4 space-x-reverse">
+                    <a href="privacy.html"
+                        class="text-sm text-gray-400 hover:text-primary transition-colors duration-300 footer-link">سياسة
+                        الخصوصية</a>
+                    <a href="privacy.html"
+                        class="text-sm text-gray-400 hover:text-primary transition-colors duration-300 footer-link">شروط
+                        الاستخدام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../assets/js/header.js"></script>
+    <script src="../assets/js/footer.js"></script>
+    <script src="../assets/js/pages/schedule.js"></script>
 </body>
 
 </html>
